@@ -55,21 +55,20 @@
   
   <!-- Text above the Bar Chart -->
   <div class="nyt-text">
-    <p>Meanwhile over at NTMC...</p>
-    <p>While Rab and the police were focusing on specific target-based surveillance, NTMC dedicated its efforts to building an Integrated Lawful Interception System, the ultimate manifestation of a surveillance state.</p>
-    <p>By 2022, they had purchased all the components necessary to monitor and intercept the everyday communications of citizens, store that data centrally, and ensure access by various law enforcement agencies.</p>
-    <p>The NTMC imported Tk 115 crores worth of surveillance equipment (1,154,214,166). The supplier which aided the NTMC in setting up the surveillance machine was US-based Yaana Technologies.</p>
+    <p>It was 6:14pm on Friday, July 19, 2024. Two Border Guard Bangladesh (BGB) personnel were advancing into Bansree G Block in Dhaka.
+
+      One, a taller man in a red helmet, carried a shield and a stick. The other, shorter and wearing a tactical vest with “BGB” stamped in bold white letters, carried a 7.62mm Type 56 submachine gun, the Chinese version of the AK variant, according to a verified footage and assessment by weapons experts.
+      
+      Nine seconds into the footage, the shorter officer, later identified as Lieutenant Colonel Redwanul Islam of BGB’s 26th Battalion, opens fire. He fires once to his left, then pivots, takes a few steps forward and takes another shot to his right.
+      
+      Moments later, another picture reveals, a man lying motionless in front of a shop on the G Block avenue, exactly where Lt Col Redwan had fired the second shot. 
+      </p>
   </div>
   
   <!-- Bar Chart Component -->
 
   <!-- Continue text after Bar Chart -->
   <div class="nyt-text">
-    <p>The Daily Star shared the list of components purchased by the NTMC between 2018 and 2022 with its in-house network specialists and using information about the components, they reconstructed the ILIS network.</p>
-    <p>The first step of interception was recording and analysing data packets that travelled over a computer network. This involved gaining access to internet infrastructure, tapping undersea fibre optic cables, accessing satellite landing systems, intercepting core routes of Internet Service Providers, and forcing telecom companies to cooperate and share data.</p>
-    <p>They purchased two units of Copper Tap Modules (10/100/1000), which were used to clone unencrypted ethernet traffic. The Tap module separated the incoming and outgoing traffic into two distinct streams and sent them to two separate monitoring ports.</p>
-    <p>They also purchased a Passive Fibre Tap, which is a hardware that mirrors fiber optic traffic and captures high-speed data invisibly. This is then redirected to monitoring ports. For monitoring ports, they purchased six of the Yaana DeepProbe series. These DeepProbes receive internet traffic intercepted from taps and prepare it for inspection.</p>
-    <p>The second step is the decryption of the encrypted traffic. For this, they purchased an SSL (secure sockets layer) decryption platform. SSL is a way to keep data safe when it travels between a browser and a website by locking it with encryption. This device intercepts SSL connections between devices and positions itself in the middle of the connection. When a sender sends traffic to a receiver, it intercepts the incoming traffic halfway, decrypts it, inspects it, reencrypts it, and passes it along to the unsuspecting receiver.</p>
   </div>
   
   <!-- This is the final paragraph before <ExplainerScrolly /> -->
@@ -82,24 +81,31 @@
   <BdrMap />
   
   <div class="nyt-text">
-    <p>The Daily Star shared the list of components purchased by the NTMC between 2018 and 2022 with its in-house network specialists and using information about the components, they reconstructed the ILIS network.</p>
-    <p>The first step of interception was recording and analysing data packets that travelled over a computer network. This involved gaining access to internet infrastructure, tapping undersea fibre optic cables, accessing satellite landing systems, intercepting core routes of Internet Service Providers, and forcing telecom companies to cooperate and share data.</p>
-    <p>They purchased two units of Copper Tap Modules (10/100/1000), which were used to clone unencrypted ethernet traffic. The Tap module separated the incoming and outgoing traffic into two distinct streams and sent them to two separate monitoring ports.</p>
-    <p>They also purchased a Passive Fibre Tap, which is a hardware that mirrors fiber optic traffic and captures high-speed data invisibly. This is then redirected to monitoring ports. For monitoring ports, they purchased six of the Yaana DeepProbe series. These DeepProbes receive internet traffic intercepted from taps and prepare it for inspection.</p>
-    <p>The second step is the decryption of the encrypted traffic. For this, they purchased an SSL (secure sockets layer) decryption platform. SSL is a way to keep data safe when it travels between a browser and a website by locking it with encryption. This device intercepts SSL connections between devices and positions itself in the middle of the connection. When a sender sends traffic to a receiver, it intercepts the incoming traffic halfway, decrypts it, inspects it, reencrypts it, and passes it along to the unsuspecting receiver.</p>
+    <p>In addition to these, 35 instances were identified where officers carried shotguns or gas guns which are used to launch tear gas or sound grenades. Only five instances were documented where a police officer was seen carrying a 7.62mm Chinese rifle. In three other instances, a single officer was observed with a holstered pistol. 
+
+      These observations are based solely on confirmed visual evidence and do not account for the total number of personnel deployed on the ground.
+      
+      
+      BGB personnel were repeatedly observed in firing positions of live ammunition. Several BGB members were documented in postures such as kneeling, sitting, or crouching, which are commonly used to stabilize aim during shooting. 
+      
+      At least ten such instances were recorded, including visual files labeled IMG_0313, IMG_0331, and IMG_0356. These firing stances are typically associated with deliberate targeting, not warning shots or crowd dispersal, according to two weapon experts we contacted.
+      
+      
+      At least 13 documented incidents show BGB personnel firing their Type 56 SMGs or other 7.62mm Chinese rifles. 
+      
+      Meanwhile, a police First Information Report (FIR) submitted on July 20, 2024 states that police fired 180 rounds of rubber cartridges and 250 rounds of lead cartridges from shotguns, along with 126 rounds from lethal Chinese rifles. The FIR mentions the time of the firing as 1:40 pm on July 19, and places the incident near the Rampura Police Post. 
+      </p>
+   
   </div>
   
 
   
   <!-- Text below the scrolly -->
   <div class="nyt-text">
-    <p>The third step is routing content to NTMC, and for this, they purchased two specialised ethernet switches and a networking device called an aggregation router.</p>
-    <p>The fourth step is deep packet inspection, which involves examining the content and user behaviour. To do that NTMC purchased five DeepProbe monitor ports, which would perform content inspection and identify data like which app is being used for sending the internet traffic (such as Signal, WhatsApp, or Messenger), the time when the traffic are being sent, how much data is being transferred, who is communicating with whom, their IP (internet protocol) addresses, whether the communication is a voice or video call, file transfer, or chat, and the frequency and duration of those interactions.</p>
   </div>
   
 
   
   <!-- Final text section -->
   <div class="nyt-text">
-    <p>It can not, however, breach end-to-end encryption, which is what apps like Signal use, so it could not peek into the messages themselves, unless the device itself had spyware like Pegasus installed.</p>
   </div>

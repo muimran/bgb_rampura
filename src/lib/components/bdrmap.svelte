@@ -16,9 +16,11 @@
 
   let activeIndex = -1;
   let scroller;
-
-  // This variable will hold our dynamically generated steps.
+  
   let scrollySteps = [];
+
+  const POLYGON_SOURCE_ID = 'step-polygon-source';
+  const POLYGON_LAYER_ID = 'step-polygon-layer';
 
   mapboxgl.accessToken = 'pk.eyJ1IjoiaW1yYW5kYXRhIiwiYSI6ImNtMDRlaHh1YTA1aDEybHI1ZW12OGh4cDcifQ.fHLLFYQx7JKPUp2Sl1jtYg';
 
@@ -67,15 +69,63 @@
     }, 70);
   }
 
-  function handleStepEnter(response) {
+  function getBounds(geojson) {
+    const bounds = new mapboxgl.LngLatBounds();
+    const coordinates = geojson.features[0].geometry.coordinates[0];
+    for (const coord of coordinates) {
+      bounds.extend(coord);
+    }
+    return bounds;
+  }
+
+  async function handleStepEnter(response) {
     const i = response.index;
     activeIndex = i;
     
+    // Universal cleanup at the beginning of the function
     activeMarkers.forEach(marker => marker.remove());
     activeMarkers.clear();
+    
+    if (map.getLayer(POLYGON_LAYER_ID)) map.removeLayer(POLYGON_LAYER_ID);
+    if (map.getSource(POLYGON_SOURCE_ID)) map.removeSource(POLYGON_SOURCE_ID);
 
     const currentStep = scrollySteps[i];
-    if (currentStep && currentStep.marker_sl) {
+
+    // Special case for the final "show all" step
+    if (currentStep && currentStep.show_all_markers) {
+      // Add all markers
+      allMarkerData.forEach(marker => {
+        const newMarker = new mapboxgl.Marker({ color: 'red' })
+          .setLngLat([marker.lon, marker.lat])
+          .setPopup(new mapboxgl.Popup().setText(marker.popupText))
+          .addTo(map);
+        activeMarkers.set(marker.sl, newMarker);
+      });
+
+      // Fit bounds to show all markers
+      if (allMarkerData.length > 0) {
+        const bounds = new mapboxgl.LngLatBounds();
+        allMarkerData.forEach(marker => bounds.extend([marker.lon, marker.lat]));
+        map.fitBounds(bounds, { padding: 40, speed: 0.8, maxZoom: 15 });
+      }
+    }
+    // Logic to handle either a polygon or a marker
+    else if (currentStep && currentStep.geojson_path) {
+      // This is our special first step for the polygon
+      const polyData = await fetch(currentStep.geojson_path).then(r => r.json());
+      
+      map.addSource(POLYGON_SOURCE_ID, { type: 'geojson', data: polyData });
+      map.addLayer({
+        id: POLYGON_LAYER_ID,
+        type: 'fill',
+        source: POLYGON_SOURCE_ID,
+        paint: { 'fill-color': '#ff0000', 'fill-opacity': 0.7 }
+      });
+
+      map.fitBounds(getBounds(polyData), { padding: 40, speed: 0.8, maxZoom: 18 });
+
+    } else if (currentStep && currentStep.marker_sl) {
+      // This is a standard marker step
       const slToShow = currentStep.marker_sl;
       const markerData = allMarkerData.find(m => m.sl === slToShow);
 
@@ -89,7 +139,8 @@
 
         map.flyTo({
           center: [markerData.lon, markerData.lat],
-          zoom: 15,
+          zoom: 18,
+          speed: 0.5,
           essential: true
         });
       }
@@ -97,18 +148,14 @@
   }
 
   function handleStepExit(response) {
-    // Logic handled in handleStepEnter for smoother transitions
+    // Logic is handled in handleStepEnter for smoother transitions
   }
 
   function setupScrollama() {
     setTimeout(() => {
       scroller = scrollama();
       scroller
-        .setup({
-          step: '.scrolly-step',
-          offset: 0.6,
-          debug: false
-        })
+        .setup({ step: '.scrolly-step', offset: 0.8, debug: false })
         .onStepEnter(handleStepEnter)
         .onStepExit(handleStepExit);
 
@@ -125,25 +172,12 @@
   async function initMap() {
     map = new mapboxgl.Map({
       container: mapContainer,
-      style: 'mapbox://styles/imrandata/cm0fmeq48000e01pb9z5c7jez',
+      style: 'mapbox://styles/imrandata/cmdott4fc001e01sgeux191ty',
       center: allCoordinates[0],
       zoom: 14
     });
 
     map.on('load', async () => {
-      const polyData = await fetch('/poly.geojson').then(r => r.json());
-      map.addSource('polygon', { type: 'geojson', data: polyData });
-      map.addLayer({ id: 'polygon-fill', type: 'fill', source: 'polygon', paint: { 'fill-color': '#0033aa', 'fill-opacity': 0.0 } });
-      map.addLayer({ id: 'polygon-outline', type: 'line', source: 'polygon', paint: { 'line-color': '#0033aa', 'line-width': 2 } });
-      let opacity = 0;
-      function animatePolygon() {
-        if (opacity < 0.8) {
-          opacity += 0.02;
-          map.setPaintProperty('polygon-fill', 'fill-opacity', opacity);
-          requestAnimationFrame(animatePolygon);
-        }
-      }
-      animatePolygon();
       map.addSource('route', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: [allCoordinates[0]] } } });
       map.addLayer({ id: 'route-line', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#ff0000', 'line-width': 4 } });
       animateLine();
@@ -163,33 +197,45 @@
             const sl = parseInt(row['sl'], 10);
             const lat = parseFloat(row['lat']);
             const lon = parseFloat(row['lon']);
-            
-            // --- MODIFIED SECTION START ---
-
-            // Pop-up on map marker shows a short title (identifier)
             const popupText = row['identifier'] || `Incident #${sl}`;
-            
-            // Step box shows a generic title and the full text from the 'textbox' column
             const stepTitle = `Incident #${sl}`;
             const stepText = row['textbox'] || 'No details provided for this incident.';
-            
-            // --- MODIFIED SECTION END ---
-
             return { sl, lat, lon, popupText, stepTitle, stepText };
           })
           .filter(({ sl, lat, lon }) => !isNaN(sl) && !isNaN(lat) && !isNaN(lon))
-          .sort((a, b) => a.sl - b.sl); // Ensure data is sorted by 'sl'
+          .sort((a, b) => a.sl - b.sl);
 
-        // 1. Populate the data for the map markers
+        // This data is needed for all marker lookups (for steps 2 onwards)
         allMarkerData = parsedData.map(({ sl, lat, lon, popupText }) => ({ sl, lat, lon, popupText }));
 
-        // 2. Populate the data for the scrolling steps
-        scrollySteps = parsedData.map(({ sl, stepTitle, stepText }) => ({
-            id: sl,
-            title: stepTitle,
-            text: stepText,
-            marker_sl: sl
-        }));
+        // Create scrollySteps by repurposing the first item
+        scrollySteps = parsedData.map((row, index) => {
+          if (index === 0) {
+            // This is the FIRST step. Use its text, but show the polygon.
+            return {
+              id: `step-${row.sl}-polygon`, // Unique ID
+              title: row.stepTitle,
+              text: row.stepText,
+              geojson_path: '/step1.geojson' // Custom property for the handler
+            };
+          } else {
+            // This is any SUBSEQUENT step. Show a marker as usual.
+            return {
+              id: row.sl,
+              title: row.stepTitle,
+              text: row.stepText,
+              marker_sl: row.sl // Standard property for the handler
+            };
+          }
+        });
+
+        // Add the final "show all" step
+        scrollySteps.push({
+          id: 'final-step-all-markers',
+          title: 'All Incidents',
+          text: 'This map shows all the reported incidents along the route.',
+          show_all_markers: true
+        });
 
         initMap();
         setupScrollama();
@@ -258,7 +304,6 @@
   </div>
 
   <div class="scrolly-steps">
-    <!-- Loop over the new dynamic scrollySteps array -->
     {#each scrollySteps as step, i (step.id)}
       <div class="scrolly-step" class:active={activeIndex === i}>
         <h3>{step.title}</h3>

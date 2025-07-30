@@ -71,10 +71,21 @@
 
   function getBounds(geojson) {
     const bounds = new mapboxgl.LngLatBounds();
-    const coordinates = geojson.features[0].geometry.coordinates[0];
-    for (const coord of coordinates) {
-      bounds.extend(coord);
-    }
+    if (!geojson.features || !geojson.features.length) return bounds;
+
+    const geometry = geojson.features[0].geometry;
+    if (!geometry || !geometry.coordinates) return bounds;
+
+    const processCoordinates = (coords) => {
+      if (typeof coords[0] === 'number') { // It's a single point
+        bounds.extend(coords);
+      } else {
+        coords.forEach(processCoordinates);
+      }
+    };
+    
+    processCoordinates(geometry.coordinates);
+
     return bounds;
   }
 
@@ -82,7 +93,6 @@
     const i = response.index;
     activeIndex = i;
     
-    // Universal cleanup at the beginning of the function
     activeMarkers.forEach(marker => marker.remove());
     activeMarkers.clear();
     
@@ -91,9 +101,7 @@
 
     const currentStep = scrollySteps[i];
 
-    // Special case for the final "show all" step
     if (currentStep && currentStep.show_all_markers) {
-      // Add all markers
       allMarkerData.forEach(marker => {
         const newMarker = new mapboxgl.Marker({ color: 'red' })
           .setLngLat([marker.lon, marker.lat])
@@ -102,16 +110,13 @@
         activeMarkers.set(marker.sl, newMarker);
       });
 
-      // Fit bounds to show all markers
       if (allMarkerData.length > 0) {
         const bounds = new mapboxgl.LngLatBounds();
         allMarkerData.forEach(marker => bounds.extend([marker.lon, marker.lat]));
         map.fitBounds(bounds, { padding: 40, speed: 0.8, maxZoom: 15 });
       }
     }
-    // Logic to handle either a polygon or a marker
     else if (currentStep && currentStep.geojson_path) {
-      // This is our special first step for the polygon
       const polyData = await fetch(currentStep.geojson_path).then(r => r.json());
       
       map.addSource(POLYGON_SOURCE_ID, { type: 'geojson', data: polyData });
@@ -125,7 +130,6 @@
       map.fitBounds(getBounds(polyData), { padding: 40, speed: 0.8, maxZoom: 18 });
 
     } else if (currentStep && currentStep.marker_sl) {
-      // This is a standard marker step
       const slToShow = currentStep.marker_sl;
       const markerData = allMarkerData.find(m => m.sl === slToShow);
 
@@ -155,7 +159,7 @@
     setTimeout(() => {
       scroller = scrollama();
       scroller
-        .setup({ step: '.scrolly-step', offset: 0.8, debug: false })
+        .setup({ step: '.scrolly-step', offset: 0.9, debug: false })
         .onStepEnter(handleStepEnter)
         .onStepExit(handleStepExit);
 
@@ -205,31 +209,43 @@
           .filter(({ sl, lat, lon }) => !isNaN(sl) && !isNaN(lat) && !isNaN(lon))
           .sort((a, b) => a.sl - b.sl);
 
-        // This data is needed for all marker lookups (for steps 2 onwards)
         allMarkerData = parsedData.map(({ sl, lat, lon, popupText }) => ({ sl, lat, lon, popupText }));
-
-        // Create scrollySteps by repurposing the first item
-        scrollySteps = parsedData.map((row, index) => {
-          if (index === 0) {
-            // This is the FIRST step. Use its text, but show the polygon.
+        
+        // ******** THIS IS THE CORRECTED LOGIC ********
+        // We now check the 'sl' value from the data, not the array index.
+        scrollySteps = parsedData.map((row) => {
+          if (row.sl === 1) { // The first step (sl=1) is special
             return {
-              id: `step-${row.sl}-polygon`, // Unique ID
+              id: `step-${row.sl}-polygon`, 
               title: row.stepTitle,
               text: row.stepText,
-              geojson_path: '/step1.geojson' // Custom property for the handler
+              geojson_path: '/ramjan.geojson' 
+            };
+          } else if (row.sl === 7) { // The step with sl=7 is special
+            return {
+              id: `step-${row.sl}-polygon-7`, 
+              title: row.stepTitle, 
+              text: row.stepText,
+              geojson_path: '/step7.geojson' 
+            };
+          } else if (row.sl === 14) { // The step with sl=14 is special
+            return {
+              id: `step-${row.sl}-polygon-14`, 
+              title: row.stepTitle,
+              text: row.stepText,
+              geojson_path: '/step14.geojson'
             };
           } else {
-            // This is any SUBSEQUENT step. Show a marker as usual.
+            // All other steps are standard markers
             return {
               id: row.sl,
               title: row.stepTitle,
               text: row.stepText,
-              marker_sl: row.sl // Standard property for the handler
+              marker_sl: row.sl 
             };
           }
         });
 
-        // Add the final "show all" step
         scrollySteps.push({
           id: 'final-step-all-markers',
           title: 'All Incidents',
@@ -296,6 +312,8 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  
 </style>
 
 <div class="scrolly-container">

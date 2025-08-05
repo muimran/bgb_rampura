@@ -117,12 +117,18 @@
     activeMarkers.clear();
     gifOverlayState = { ...gifOverlayState, isActive: false };
     
-    ['polygon', 'delta', 'label'].forEach(type => {
-        const layerId = `step-${type}-layer`;
-        const sourceId = `step-${type}-source`;
-        if (map.getLayer(layerId)) map.removeLayer(layerId);
-        if (map.getSource(sourceId)) map.removeSource(sourceId);
+    // ======================== START OF CHANGE ========================
+    // CORRECTED: Remove all transient layers and sources using their defined constant IDs.
+    // The previous logic failed because it generated names like 'step-delta-source',
+    // but the constant used was 'delta-source', so the source was never removed,
+    // causing an error when trying to add it again on a subsequent step.
+    [POLYGON_LAYER_ID, DELTA_LAYER_ID, LABEL_LAYER_ID].forEach(id => {
+        if (map.getLayer(id)) map.removeLayer(id);
     });
+    [POLYGON_SOURCE_ID, DELTA_SOURCE_ID, LABEL_SOURCE_ID].forEach(id => {
+        if (map.getSource(id)) map.removeSource(id);
+    });
+    // ========================= END OF CHANGE =========================
 
 
     // 3. ADD VISUALS FOR CURRENT STEP (Declarative Approach)
@@ -177,12 +183,10 @@
         markerSLsToAdd.push(5);
     }
     
-    // ======================== START OF CHANGE ========================
     // When on step 12 (index 11), also add the marker from step 11 (sl=11).
     if (index === 11) {
         markerSLsToAdd.push(11);
     }
-    // ========================= END OF CHANGE =========================
 
     // Animate line and add all markers scheduled for this step
     for (const sl of markerSLsToAdd) {

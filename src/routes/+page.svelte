@@ -58,6 +58,14 @@
   .article-text p {
     margin: 1.2em 0;
   }
+  /* Add this to your <style> block */
+
+.video-embed {
+  width: 100%; /* Make it fill the full width of the text column */
+  aspect-ratio: 9 / 16; /* Explicitly set a vertical 9:16 ratio */
+  border: none;
+  margin: 1.5em 0; /* Optional: Adds vertical space */
+}
 </style>
 
 <div class="article-text">
@@ -68,17 +76,16 @@
   
   <p>Nine seconds into the footage, the shorter officer opens fire. He fires once to his left, then pivots, takes a few steps forward, and takes another shot to his right.&nbsp;</p>
   
-  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 1.5em 0;">
-    <iframe
-      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-      src="https://www.youtube.com/embed/D3P9DEmtXLE"
-      title="YouTube video: BGB officer opens fire in Banasree"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-      loading="lazy">
-    </iframe>
-  </div>
+<!-- This is the container DIV -->
+<iframe
+  class="video-embed" 
+  src="https://www.youtube.com/embed/D3P9DEmtXLE"
+  title="YouTube video: BGB officer opens fire in Banasree"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+  loading="lazy">
+</iframe>
   
   <p>Another picture <strong>captured moments later</strong> reveals a man lying motionless in front of a shop on the G Block avenue, exactly where the officer had fired the second shot.&nbsp;</p>
   

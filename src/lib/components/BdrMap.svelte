@@ -68,21 +68,26 @@
   // --- MAP AND SCROLL LOGIC ---
 
   function resetMapToInitialState() {
-    if (!map || !map.isStyleLoaded() || scrollySteps.length === 0) return;
+    if (!map || !map.isStyleLoaded() || allMarkerData.length === 0) return;
 
-    // Use the camera defined for the very first step
-    const initialCamera = scrollySteps[0]?.camera;
-    if (initialCamera) {
-      if (initialCamera.type === 'flyTo') {
-        map.flyTo(initialCamera.options);
-      } else if (initialCamera.type === 'fitBounds') {
-        map.fitBounds(mapboxgl.LngLatBounds.convert(initialCamera.bounds), initialCamera.options);
-      }
-    }
+    // ======================== START OF CHANGE ========================
+    // Calculate the bounds that contain all markers to define the "zoomed out" state.
+    const overallBounds = allMarkerData.reduce(
+      (b, m) => b.extend([m.lon, m.lat]),
+      new mapboxgl.LngLatBounds()
+    );
+
+    // Animate the camera back to this zoomed-out state.
+    map.fitBounds(overallBounds, {
+      padding: 50,
+      duration: 1000 // Use a duration for a smooth transition back to the start.
+    });
+    // ========================= END OF CHANGE =========================
 
     // Clear all transient markers and layers
     activeMarkers.forEach(m => m.remove());
     activeMarkers.clear();
+    gifOverlayState = { ...gifOverlayState, isActive: false };
     [POLYGON_LAYER_ID, LABEL_LAYER_ID, DELTA_LAYER_ID].forEach(layerId => {
       if (map.getLayer(layerId)) map.removeLayer(layerId);
       const src = layerId.replace('-layer', '-source');
@@ -116,20 +121,13 @@
     activeMarkers.forEach(marker => marker.remove());
     activeMarkers.clear();
     gifOverlayState = { ...gifOverlayState, isActive: false };
-    
-    // ======================== START OF CHANGE ========================
-    // CORRECTED: Remove all transient layers and sources using their defined constant IDs.
-    // The previous logic failed because it generated names like 'step-delta-source',
-    // but the constant used was 'delta-source', so the source was never removed,
-    // causing an error when trying to add it again on a subsequent step.
+
     [POLYGON_LAYER_ID, DELTA_LAYER_ID, LABEL_LAYER_ID].forEach(id => {
         if (map.getLayer(id)) map.removeLayer(id);
     });
     [POLYGON_SOURCE_ID, DELTA_SOURCE_ID, LABEL_SOURCE_ID].forEach(id => {
         if (map.getSource(id)) map.removeSource(id);
     });
-    // ========================= END OF CHANGE =========================
-
 
     // 3. ADD VISUALS FOR CURRENT STEP (Declarative Approach)
 
@@ -157,11 +155,10 @@
     }
 
     // Show a primary GeoJSON polygon, handling carry-overs for multiple steps.
-    // This logic determines which step's configuration to use for the main polygon.
     let stepForMainPolygon = step;
-    if (index === 1) { // On step 2 (index 1), show polygon from step 1 (index 0)
+    if (index === 1) {
         stepForMainPolygon = scrollySteps[0];
-    } else if (index === 7) { // On step 8 (index 7), show polygon from step 7 (index 6)
+    } else if (index === 7) {
         stepForMainPolygon = scrollySteps[6];
     }
     
@@ -171,28 +168,20 @@
       map.addLayer({ id: POLYGON_LAYER_ID, type: 'fill', source: POLYGON_SOURCE_ID, paint: { 'fill-color':'#ff0000','fill-opacity':0.7 } });
     }
 
-    // This block handles adding markers for the current step.
     const markerSLsToAdd = [];
     if (step.marker_sl && !step.show_all_markers) {
-        // Add the marker primarily associated with this step
         markerSLsToAdd.push(step.marker_sl);
     }
-
-    // For step 6 (which is at index 5), also add the marker from step 5 (which has sl=5).
     if (index === 5) {
         markerSLsToAdd.push(5);
     }
-    
-    // When on step 12 (index 11), also add the marker from step 11 (sl=11).
     if (index === 11) {
         markerSLsToAdd.push(11);
     }
 
-    // Animate line and add all markers scheduled for this step
     for (const sl of markerSLsToAdd) {
         const mData = allMarkerData.find(m => m.sl === sl);
         if (mData) {
-            // The line animation is triggered for marker sl=11, which appears at index 10
             if (index === 10 && sl === 11 && !hasLineAnimationStarted) {
                 hasLineAnimationStarted = true;
                 await animateLine();
@@ -208,8 +197,6 @@
         }
     }
 
-    // Show an extra GeoJSON layer (Handles step 5 and its carry-over to step 6)
-    // The step for sl=6 (index 5) should show the polygon from sl=5 (index 4).
     const stepForExtraPolygon = (index === 5) ? scrollySteps[4] : step;
     if (stepForExtraPolygon?.extra_geojson_path) {
       const data = await fetch(stepForExtraPolygon.extra_geojson_path).then(r => r.json());
@@ -241,12 +228,20 @@
     }, 100);
   }
 
+  // ======================== START OF CHANGE ========================
   async function initMap() {
+    // Calculate the bounding box that encompasses all markers for the initial view.
+    const initialBounds = allMarkerData.reduce(
+        (b, m) => b.extend([m.lon, m.lat]),
+        new mapboxgl.LngLatBounds()
+    );
+
     map = new mapboxgl.Map({ 
       container: mapContainer, 
       style: 'mapbox://styles/imrandata/cmdott4fc001e01sgeux191ty', 
-      center: allCoordinates[0], 
-      zoom: 14 
+      // Set the initial view to the calculated bounds instead of a hardcoded center/zoom.
+      bounds: initialBounds,
+      fitBoundsOptions: { padding: 50, duration: 0 } // `duration: 0` makes it appear instantly.
     });
     
     map.on('load', () => {
@@ -256,7 +251,9 @@
       setupScrollama();
       observer = new IntersectionObserver(entries => {
         entries.forEach(e => {
-          if (e.isIntersecting) {
+          // The key change: only reset if the trigger is intersecting AND we've already
+          // been on a step (i.e., not the initial page load).
+          if (e.isIntersecting && activeIndex !== -1) {
             resetMapToInitialState();
             activeIndex = -1;
           }
@@ -265,6 +262,7 @@
       if (resetTrigger) observer.observe(resetTrigger);
     });
   }
+  // ========================= END OF CHANGE =========================
 
   async function buildAndProcessSteps() {
     const res = await fetch(`${base}/bgb.csv`);
@@ -392,10 +390,36 @@
   
   :global(.circle-marker) { background-image:url('/custom-marker.png'); width:26px; height:26px; background-size:contain; background-repeat:no-repeat; cursor:pointer; }
   :global(.square-marker) { width:17px; height:17px; background-color:#ff0000; border:1px solid #ffffff; cursor:pointer; }
+
+
+  .gradient-top,
+.gradient-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 5; /* Make sure it's above the map but below other UI if needed */
+  pointer-events: none; /* Allows full interaction with the map underneath */
+}
+
+.gradient-top {
+  top: 0;
+  height: 12%;
+  background: linear-gradient(to bottom, white 0%, transparent 100%);
+}
+
+.gradient-bottom {
+  bottom: 0;
+  height: 12%;
+  background: linear-gradient(to top, white 0%, transparent 100%);
+}
+
+
 </style>
 
 <div class="scrolly-container">
   <div class="graphic-container">
+    <div class="gradient-top"></div>
+    <div class="gradient-bottom"></div>
     <div bind:this={mapContainer} id="map"></div>
     <GifOverlay map={map} isActive={gifOverlayState.isActive} lngLat={gifOverlayState.lngLat} gifSrc={gifOverlayState.gifSrc} anchorOffset={gifOverlayState.anchorOffset} />
   </div>

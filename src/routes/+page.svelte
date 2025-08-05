@@ -29,6 +29,8 @@
 
 
 
+
+
 <style>
   .article-text {
     max-width: 680px;
@@ -37,7 +39,7 @@
     font-size: 1.16rem;
     line-height: 1.5;
     color: #222;
-    padding: 0 25px;
+    padding: 0 26px;
 
     h2 {
   font-size: 1.5rem;  /* or 24px or whatever size you prefer */

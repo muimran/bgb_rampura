@@ -7,6 +7,7 @@
   import { base } from '$app/paths';
   import GifOverlay from '$lib/components/GifOverlay.svelte';
 
+  
   let map;
   let mapContainer;
   let resetTrigger;

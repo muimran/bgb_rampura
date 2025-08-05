@@ -150,18 +150,22 @@
       });
     }
 
-    // Show a primary GeoJSON polygon (Handles step 1 and its carry-over to step 2)
-    const stepForMainPolygon = (index === 1) ? scrollySteps[0] : step;
+    // Show a primary GeoJSON polygon, handling carry-overs for multiple steps.
+    // This logic determines which step's configuration to use for the main polygon.
+    let stepForMainPolygon = step;
+    if (index === 1) { // On step 2 (index 1), show polygon from step 1 (index 0)
+        stepForMainPolygon = scrollySteps[0];
+    } else if (index === 7) { // On step 8 (index 7), show polygon from step 7 (index 6)
+        stepForMainPolygon = scrollySteps[6];
+    }
+    
     if (stepForMainPolygon?.geojson_path) {
       const data = await fetch(stepForMainPolygon.geojson_path).then(r => r.json());
       map.addSource(POLYGON_SOURCE_ID, { type: 'geojson', data });
       map.addLayer({ id: POLYGON_LAYER_ID, type: 'fill', source: POLYGON_SOURCE_ID, paint: { 'fill-color':'#ff0000','fill-opacity':0.7 } });
     }
 
-    // ======================== START OF CHANGE ========================
-    // This block replaces the previous "Show a single marker" logic.
-    // It creates a list of markers to show, allowing multiple markers on one step.
-
+    // This block handles adding markers for the current step.
     const markerSLsToAdd = [];
     if (step.marker_sl && !step.show_all_markers) {
         // Add the marker primarily associated with this step
@@ -172,6 +176,13 @@
     if (index === 5) {
         markerSLsToAdd.push(5);
     }
+    
+    // ======================== START OF CHANGE ========================
+    // When on step 12 (index 11), also add the marker from step 11 (sl=11).
+    if (index === 11) {
+        markerSLsToAdd.push(11);
+    }
+    // ========================= END OF CHANGE =========================
 
     // Animate line and add all markers scheduled for this step
     for (const sl of markerSLsToAdd) {
@@ -192,7 +203,6 @@
             activeMarkers.set(mData.sl, mk);
         }
     }
-    // ========================= END OF CHANGE =========================
 
     // Show an extra GeoJSON layer (Handles step 5 and its carry-over to step 6)
     // The step for sl=6 (index 5) should show the polygon from sl=5 (index 4).
@@ -200,7 +210,7 @@
     if (stepForExtraPolygon?.extra_geojson_path) {
       const data = await fetch(stepForExtraPolygon.extra_geojson_path).then(r => r.json());
       map.addSource(DELTA_SOURCE_ID, { type: 'geojson', data });
-      map.addLayer({ id: DELTA_LAYER_ID, type: 'fill', source: DELTA_SOURCE_ID, paint: { 'fill-color':'#3366ff','fill-opacity':0.4 } });
+      map.addLayer({ id: DELTA_LAYER_ID, type: 'fill', source: DELTA_SOURCE_ID, paint: { 'fill-color':'#000000','fill-opacity':0.7 } });
       if (stepForExtraPolygon.extra_geojson_label) {
         const cent = turf.centroid(data);
         cent.properties.labelText = stepForExtraPolygon.extra_geojson_label;

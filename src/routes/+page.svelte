@@ -1,6 +1,6 @@
 <script>
   import BdrMap from '$lib/components/BdrMap.svelte';
-  export let data;
+
 </script>
 
 <svelte:head>

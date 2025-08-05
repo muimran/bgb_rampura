@@ -1,5 +1,5 @@
 <script>
-  import BdrMap from '$lib/components/bdrmap.svelte';
+  import BdrMap from '$lib/components/BdrMap.svelte';
   export let data;
 </script>
 
@@ -36,6 +36,13 @@
     line-height: 1.5;
     color: #222;
     padding: 0 25px;
+
+    h2 {
+  font-size: 1.5rem;  /* or 24px or whatever size you prefer */
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
   }
 
   @media (max-width: 700px) {
@@ -51,102 +58,296 @@
 
 <div class="article-text">
 
-  <p><strong>A TDS X TGI Joint Investigation</strong></p>
-
   <p>It was 6:14pm on Friday, July 19, 2024. Two Border Guard Bangladesh (BGB) personnel were advancing into Bansree G Block in Dhaka.</p>
 
-  <p>One, a taller man in a red helmet, carried a shield and a stick. The other, shorter and wearing a tactical vest with “BGB” stamped in bold white letters, carried a 7.62mm Type 56 submachine gun, the Chinese version of the AK variant, according to a verified footage and assessment by weapons experts.</p>
-
-  <p>Nine seconds into the footage, the shorter officer, later identified as Lieutenant Colonel Redwanul Islam of BGB’s 26th Battalion, opens fire. He fires once to his left, then pivots, takes a few steps forward and takes another shot to his right.</p>
-
-  <p>Moments later, another picture reveals, a man lying motionless in front of a shop on the G Block avenue, exactly where Lt Col Redwan had fired the second shot.</p>
-
-  <p>In the next footage, the officer repositions himself, first taking a firing stance on G Block avenue to shoot towards Road 1 of F Block. He then moves again, aiming his rifle down Road 1 of G Block. That final shot was most likely for 14-year-old Ashiqul Islam, as two eyewitness accounts, one more footage and two photographs indicate.</p>
-
-  <p>A single round, most likely from a Type 56 assault rifle, like the one Redwan was carrying, entered below his left ear and tore through the other side of his head, a joint investigation by <em>The Daily Star</em> and Tech Global Institute has found.</p>
-
-  <p>Shah Alam, a young businessman from Banasree, was with Ashiqul the moment he was shot.</p>
-
-  <p>At least one photograph shows Shah Alam helping to place Ashiqul’s body into a rickshaw.</p>
-
-  <p>“The incident happened between Asr and Maghrib prayers,” he said.</p>
-
-  <p>This timeline coincides with the metadata of the video we have which records Redwan opening fire in their direction around 6:14pm.</p>
-
-  <p>“I met Ashiqul sometime after I joined the protests in Banasree following Juma prayers on July 19," Shah Alam recalled. "Though just a kid, he was the most courageous among us. Braving live bullets, he often used to run around, have a peep and provide information on police and BGB movement to us.”</p>
-
-  <p>He said a BGB Armoured Personnel Carrier (APC) stopped near the entrance of G Block after protesters created a barricade with tree logs and similar things on the main road. By then, most protesters had abandoned the main road and retreated into the residential avenues of Banasree.</p>
-
-  <p>At one point, while other BGB personnel were clearing the road, two of them, one with a gun in hand, entered Banasree while shooting, Alam said, which was also confirmed by photos and videos verified by this investigation.</p>
-
-  <p>“I saw a man fall right beside a shop in G block,” he said.</p>
-
-  <p>He, Ashiqul, and about 15 others ran for cover down Road 1 of G Block.</p>
-
-  <p>“Gates of all the buildings were closed, but an aunty from house number 11 opened their residence for us. We were all rushing towards the garage of that building. Ashiqul was just behind me. I entered, and then I saw Ashiqul... I don’t know what got hold of him, probably he wanted to have another look at where the BGB personnel were. He ran a few steps back, took a glance towards where the two officers were, and then tried to return to the building. A few shots were heard, and I looked back and saw Ashiqul falling with blood pouring from his head, face and mouth,” Alam said.</p>
-
-  <p>This newspaper also spoke to another eyewitness, Mahbuba Kayes Lucky, the woman Shah Alam referred to, who shared a similar account.</p>
-
-  <p>With Lt. Col. Redwan positioned on the main road to Ashiqul’s left, a distance of just 84 metres, and Ashiqul turning to glance back before trying to re-enter the building, the boy was caught in a fatal perpendicular line of fire. The bullet striking him below his left ear suggests he was moving laterally at the exact moment the shot was fired.</p>
-
-  <p>The death certificate issued by Banasree’s Advanced Hospital shows he died from a “gunshot wound”.</p>
-
-  <p>“Ashiqul joined the protests after 3:00pm that day. When he was still not returning after sunset, I got worried. But I could not step outside to find him as sounds of gunfire kept rocking the Banasree area till 9-9:30pm,” Ashiqul’s mother Alisha Afroze told <em>The Daily Star</em>.</p>
-
-  <p>“After 10:00pm, a protester came to our house and showed me footage of a body lying unclaimed at the hospital. I immediately recognised it was my Ashiqul. I raised him with tears, sweat and blood as a single mother. My world revolved around him. Seeing his body, I fainted.”</p>
-
-  <p><strong>A Potential Shooter</strong></p>
-
-  <p>The direction of movement, and the role of the BGB officer who fired shots towards Ashiqul was achieved through a multi-step forensic analysis of 15 different videos and images in this joint investigation by <em>The Daily Star</em> and Tech Global Institute, a technology nonprofit whose forensics investigation arm has been documenting digital evidence related to the July uprising.</p>
-
-  <p>The investigation was based on two primary methods: chronolocation and reconstruction, and camouflage pattern analysis. The premise of this method is that camouflage patches on uniforms have unique, non-repeating patterns. By mapping these patterns, an individual's uniform can be distinguished from others.</p>
-
-  <p>A key reference was a video showing a BGB officer of small stature at rest in Rampura, providing a clear view of his uniform. TGI’s forensics investigators identified a unique combination of patches and shapes on specific areas of their uniform: the upper chest, chest, right wrist, and right thigh. [use image]</p>
-
-  <p>This distinct pattern was then compared to the uniform of the soldier filmed shooting in Banasree where Ashiqul was killed. The analysis confirmed an exact match of the patch configuration.</p>
-
-  <p>To confirm this pattern was not standard-issue, it was compared against the uniforms of other BGB soldiers at the scene. None of the other uniforms shared this specific combination of patches, confirming it was a unique identifier for this individual.</p>
-
-  <p>While BGB uniforms share similar patterns, the exact placement of camouflage patches varies across individuals. This randomness in digital printing makes identical patch arrangements extremely rare, reinforcing the uniqueness of his uniform.</p>
-
-  <p>This analysis was further supported by observing that the small-statured BGB officer was consistently accompanied by the same accomplice (distinguished by a red helmet and a shield) in footage from both Rampura and the Banasree shooting scene, linking the identified individual directly to the time and place of Ashiqul's death. [use image]</p>
-
-  <p>This investigation also conducted a facial recognition test using advanced AI models, primarily ArcFace. This was done by comparing eight clear images of the small-statured BGB officer with five frames of the shooter taken from the video footage. The system reported a positive match with Lt Col Redwan.</p>
-
-  <p>To prevent a false positive, the system was also tested with images of other BGB soldiers. It correctly rejected these non-matches, demonstrating the accuracy and specificity of the identification.</p>
-
-  <p><em>The Daily Star</em> also shared the clear footage of Lt Col Redwan with three high-level sources within the army, BGB and an intelligence agency, who confirmed the person in question is indeed him. [might get a photo with his nameplate by today.]</p>
-
+  <p>One, a taller man in a red helmet, carried a shield and a stick. The other, shorter and wearing a tactical vest with "BGB" stamped in bold white letters, carried a 7.62mm Type 56 rifle, the Chinese version of the AK variant, according to independently verified footage, and supporting assessment by weapons experts.</p>
+  
+  <p>Nine seconds into the footage, the shorter officer opens fire. He fires once to his left, then pivots, takes a few steps forward, and takes another shot to his right.&nbsp;</p>
+  
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 1.5em 0;">
+    <iframe
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+      src="https://www.youtube.com/embed/D3P9DEmtXLE"
+      title="YouTube video: BGB officer opens fire in Banasree"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+  
+  <p>Another picture <strong>captured moments later</strong> reveals a man lying motionless in front of a shop on the G Block avenue, exactly where the officer had fired the second shot.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;Insert Photo: redwan_g_block_Banasree_3&gt;&gt;</strong></p>
+  
+  <p>In the next footage, the officer repositions himself, first taking a firing stance on G Block avenue to shoot towards Road 1 of F Block. He then moves again, aiming and firing his rifle down Road 1 of G Block.</p>
+  
+  <p><strong>&lt;&lt;redwan_g_block_Banasree_3&gt;&gt;</strong></p>
+  
+  <p>That bullet most likely took the life of 14-year-old Ashiqul Islam, as narrated by two eyewitnesses, and is indicative through photographs and videos from the day.</p>
+  
+  <p>A single round, most likely from a Type 56 rifle, like the one the officer and other BGB members were carrying, entered below his left ear and tore through the other side of his head.</p>
+  
+  <p>While in-depth forensic analyses confirmed a match by comparing footage from Banasree and Rampura, indicating that the same suspected shooter was present in both locations, The Daily Star independently verified his name and identity. Sources in intelligence agencies, the International Crimes Tribunal, and journalists who were present on the ground identified him as Lt Col Redwanul Islam.&nbsp;</p>
+  
+  <p>Shah Alam, a young businessman from Banasree, was with Ashiqul when he was shot.</p>
+  
+  <p>"The incident happened between Asr and Maghrib prayers," Alam said.&nbsp;</p>
+  
+  <p>This timeline matches with the metadata of the video, which records a short-statured BGB officer opening fire in their direction at 6:14pm.</p>
+  
+  <p>"I met Ashiqul sometime after I joined the protest in Banasree following Juma prayers on July 19," Shah Alam recalled. "Though just a kid, he was the most courageous among us. Braving live bullets, he often used to run around, have a peep, and provide information on police and BGB movement to us."</p>
+  
+  <p>He said a BGB Armored Personnel Carrier (APC) stopped near the entrance of G Block after protesters created a barricade with tree logs and other items on the main road. By then, most protesters had abandoned the main road and retreated into the residential blocks of Banasree.</p>
+  
+  <p>At one point, while other BGB personnel were clearing the road, two soldiers, one visibly armed, entered Banasree, Alam added. Footage we verified also confirmed his account.&nbsp;</p>
+  
+  <p>"I saw a man fall right beside a shop in G Block," he said.&nbsp;</p>
+  
+  <p>He, along with Ashiqul and about 15 others, ran for cover down Road 1 of G Block.</p>
+  
+  <p>"The gates of all the buildings were closed, but an aunty from a nearby house opened their residence for us. We were all rushing towards the garage of that building. Ashiqul was just behind me. I entered, and then I saw Ashiqul... I don't know what got hold of him; probably he wanted to have another look at where the BGB personnel were.&nbsp;</p>
+  
+  <p>"He ran a few steps back, took a glance towards where the two officers were, and then tried to return to the building. As far as I can remember, I heard one shot, and I looked back and saw Ashiqul falling with blood pouring from his head, face, and mouth," Alam said.</p>
+  
+  <p>This newspaper also spoke with Mahbuba Kayes Lucky, the woman Shah Alam referred to, who shared a similar account.</p>
+  
+  <p>With Lt Col Redwan positioned on the main road to Ashiqul's left, a distance of just 84 metres, and Ashiqul turning to glance back before trying to re-enter the building, the boy was caught in a fatal perpendicular line of fire. The bullet striking him below his left ear suggests he was moving laterally at the exact moment the shot was fired.</p>
+  
+  <p>The death certificate issued by Banasree's Advanced Hospital shows he died from a "gunshot wound".</p>
+  
+  <p>Recalling the last time she saw her son, Ashiqul's mother, Alisha Afroze, said Ashiqul joined the protests after 3:00pm that day. She was worried that he was not coming home, but she could not step outside to find him as the sounds of gunfire kept rocking the Banasree area till about 9:30pm.&nbsp;&nbsp;</p>
+  
+  <p>"After 10:00pm, a protester came to our house and showed me footage of a body lying unclaimed at the hospital. I immediately recognised it was my Ashiqul. I raised him with tears, sweat and blood as a single mother. My world revolved around him. Seeing his body, I fainted."</p>
+  
+  <p>She collected the body from the hospital around 11:00pm, hired an ambulance, and set out for Dinajpur, their ancestral home, to bury her son.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;BGB movement throughout 19th July, 2024&nbsp;</strong></p>
 </div>
 
 <BdrMap />
 
 <div class="article-text">
 
-  <p><strong>Turning Point in Killing Spree</strong></p>
+  <h2>Turning point in killing spree</h2>
 
-  <p>Ashiqul’s death was the brutal climax of a day that saw the Rampura-Banasree area of Dhaka being turned into a killing field.</p>
-
-  <p>From July 16 till August 5, the BGB deployed nearly 4,000 guards to 58 locations across the country, according to the UN fact-finding report published in February 2025.</p>
-
-  <p>A Daily Star investigation <a href="#">[hyperlink]</a> found that on the evening of July 18, former prime minister Sheikh Hasina gave a 'shoot-on-sight' order, which the UN report confirms was part of a broader government directive to use lethal force. From the next day, BGB, Rab, and police acted on these orders, carrying out extrajudicial killings in different parts of the country.</p>
-
+  <p>Ashiqul's death was the brutal climax of a day that saw the Rampura-Banasree area of Dhaka being turned into a killing zone.&nbsp;</p>
+  
+  <p>From July 16 till August 5, the BGB deployed nearly 4,000 members to 58 locations across the country, according to the UN fact-finding report published in February 2025.&nbsp;</p>
+  
+  <p><a href="https://www.thedailystar.net/news/investigative-stories/news/shoot-directly-hasinas-order-and-deadly-aftermath-3946896">An investigation by The Daily Star</a> found that on the evening of July 18, ousted prime minister Sheikh Hasina gave a "shoot-on-sight" order that the UN report confirms was part of a broader government directive to use lethal force. From the following day, BGB, Rab, and police acted on these orders, carrying out extrajudicial killings in different parts of the country, the UN report said.</p>
+  
   <p>In Rampura, our reporters witnessed the BTV building being vandalised around 1:00pm on July 18. The first BGB unit arrived at the scene around 4:30pm, but they were significantly outnumbered by thousands of protesters.</p>
-
-  <p>Video footage from this period shows demonstrators chanting slogans while standing on top of a BGB armored carrier. At one point, the BGB unit had to fall back, but hundreds of protesters were still waiting outside.</p>
-
+  
+  <p>Video footage from this period shows protesters chanting slogans while standing on top of a BGB armored carrier. At one point, the BGB unit had to fall back.</p>
+  
   <p>As evening fell, things took a fatal turn.</p>
-
-  <p>Around 7:30pm, our reporters saw a second, heavily armed BGB unit arriving at Rampura via Hatirjheel. First, they seized control of the Rampura bridge area by firing blank shots to disperse the crowds. Then, around 8:00pm, they advanced on the BTV building, clearing the area with live ammunition.</p>
-
-  <p>By 9:00pm, the BGB had secured the Rampura TV centre area.</p>
-
-  <p>This sequence of events matches with information from two high-level sources. The first unit was the BGB’s 5th Battalion, under the command of Lt Col Imran [full name]. The second, called in as reinforcement, was the 26th Battalion, commanded by Lt Col Redwaul Islam.</p>
-
-  <p><em>The Daily Star</em> also spotted an Armoured Personnel Carrier (APC) from the 62nd Battalion (Narayanganj) at Aftabnagar Gate at 5:00pm on July 19.</p>
-
-  <p>The UN fact-finding report found that after the attack on BTV station, the BGB was used as a "strike force" and that reinforced orders to use lethal force were issued by the Prime Minister’s Office and Home Ministry on the evening of July 18 and again on July 19, leading to a near-tripling of reported deaths.</p>
-
+  
+  <p>Around 7:30pm, our reporters saw a second, heavily armed BGB unit arriving at Rampura via Hatirjheel. First, they seized control of the Rampura bridge area by firing blank shots to disperse the crowds. Then, around 8:00pm, they advanced on the BTV building, clearing the area with live ammunition. By 9:00pm, the BGB had secured the Rampura TV centre area.</p>
+  
+  <p>This sequence of events matches with information from two high-level official sources who are investigating the Rampura killings. The first unit was the BGB's 5th Battalion, they said.&nbsp;</p>
+  
+  <p>The second unit, called in as reinforcement, was the 26th Battalion, commanded by Lt Col Redwaul Islam, sources in the International Crimes Tribunal said.</p>
+  
+  <p>The Daily Star also spotted an Armoured Personnel Carrier (APC) from the 62nd (Narayanganj) at Aftabnagar Gate at 5:00pm on July 19, suggesting that the government ordered a large-scale BGB deployment in the area.&nbsp;</p>
+  
+  <p>The UN fact-finding team found that after the attack on BTV station, the BGB was used as a "strike force" to reinforce orders to use lethal force. The instruction was issued by both the Prime Minister's Office and home ministry on the evening of July 18 and again on July 19, leading to a near-tripling of reported deaths.&nbsp;</p>
+  
+  <p><a href="https://www.ohchr.org/en/documents/country-reports/ohchr-fact-finding-report-human-rights-violations-and-abuses-related">The UN report </a>gives an overview of the violence in this area, classifying "Rampura and Badda (19 July)" as a specific case of indiscriminate shooting. The UN found that BGB and police shot lethal ammunition directly into crowds.&nbsp;</p>
+  
+  <p>One witness recalled how security forces "cornered protesters from three sides and fired simultaneously.</p>
+  
+  <p>"Bullets were dropping down on us like rain," the UN report quotes him.&nbsp;</p>
+  
+  <p>The UN report also documents how hospitals in the area were overwhelmed, with one receiving over 600 injured patients and 20 dead bodies that day.</p>
+  
+  <p>The Daily Star saw 13 bodies in three hospitals of Rampura-Banasree in one hour from 4:00-5:00pm that day.&nbsp;</p>
+  
+  <p>Separately, a TGI &amp; ITJP investigation documented at least 23 killings in Rampura-Banasree area on July 19, according to <a href="https://techglobalinstitute.com/wp-content/uploads/2025/01/Bloodshed_In_Bangladesh_V6.pdf">a report published in January 2025</a>.&nbsp;</p>
+  
+  <p>In a report sent to the UN, BGB claimed they only fired warning shots and caused no casualties.&nbsp;</p>
+  
+  <p>However, this directly contradicts evidence and reports from other government intelligence agencies such as the NSI. The NSI report sent to the UN mentions three killings by the BGB on July 19 in and around Rampura-Banasree.</p>
+  
+  <h2>Identifying A Potential Shooter: Methodology</h2>
+  
+  <p>Multiple eyewitnesses in Rampura said they saw BGB personnel wearing vests, particularly a small-statured officer, shooting at unarmed protesters. To verify the direction of movement, and the role of BGB personnel that fired shots towards Ashiqul were achieved through a multi-step forensic analysis of 15 different videos and images during a joint investigation by The Daily Star and Tech Global Institute (TGI), a technology nonprofit whose forensics investigation arm has been documenting digital evidence related to the Monsoon Revolution.&nbsp;</p>
+  
+  <p>While TGI's forensic analysis confirmed a match by comparing the Banasree and Rampura footage, indicative that the same individual was likely present in both locations on that day, The Daily Star independently verified his name and identity by speaking with sources in intelligence agencies, the International Crimes Tribunal, and journalists who were present on the ground.</p>
+  
+  <p>The forensic analysis was based on two primary methods: chronolocation and reconstruction, and pattern configuration. The premise of the latter is based on identifying similar or the same patch configurations on uniforms at a given time, allowing us to distinguish an individual's uniform from others.&nbsp;</p>
+  
+  <p>Using multiple images of BGB officers from the day and location, TGI's forensics investigators identified a unique combination of patches and shapes on specific areas of their uniform: the upper chest, chest, right wrist, and right and left thighs.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;Insert image: redwan_dit_road&gt;&gt;</strong></p>
+  
+  <p><strong>&lt;&lt;Insert image: redwan_dit_road_2&gt;&gt;</strong></p>
+  
+  <p>This distinct pattern was then compared to footage of soldiers filmed shooting in Banasree, where Ashiqul was killed on the same day and time. The analysis of the uniform's camouflage pattern confirmed an exact match with the patch configuration for one individual's uniform. We consistently found the same patch configuration on one uniformed BGB officer of small stature, who appeared in multiple footage recorded on the same day in Rampura-Banasree, indicating they are likely the same individual.&nbsp;&nbsp;</p>
+  
+  <p>To confirm the distinctiveness of the camouflage patches, it was compared against the camouflage patterns on uniforms of other BGB soldiers at the scene on the same day. None of the other uniforms shared this specific combination of patches.</p>
+  
+  <p>This analysis was further supported by observing that the small-statured BGB officer was consistently accompanied by an accomplice wearing a red helmet, and hand gloves in multiple footage from Rampura and Banasree on that day.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;Insert Image: redwan_accomplice_match&gt;&gt;</strong></p>
+  
+  <p><strong>&lt;&lt;Insert Image: redwan_accomplice_match_2&gt;&gt;</strong></p>
+  
+  <p>To further corroborate, this investigation used facial reconstruction and matching techniques to assess whether the distinct facial features for the suspect could be matched throughout different footage using open‑source tools.&nbsp;</p>
+  
+  <p>We used three different facial recognition and matching models that generate high‑dimensional embeddings of unique facial features. All three models produced positive matches for the suspect.</p>
+  
+  <p>To reduce risks of false positives, the analyses were replicated with facial features of other BGB soldiers present at the scene. It consistently returned a negative match for all other personnel.</p>
+  
+  <p>While facial reconstruction, recognition and matching shows promise, the method has several limitations, including the quality of images or footage available, restricted negative testing, and environmental factors. To address ethical and privacy considerations, the analysis only used publicly available materials used for journalistic or public awareness purposes, and strictly limited data collection, processing and retention throughout the process.&nbsp;</p>
+  
+  <p>The Daily Star shared clear footage of the small-statured officer with three high-level sources who confirmed the person in question is Lt Col Redwan. One photojournalist present at the scene on July 19 said he also saw the name plaque, which read: Redwan.</p>
+  
+  <h2>Morning showed the day</h2>
+  
+  <p>The day's bloodshed began early. Verified footage shows Ramzan, a 24-year-old in an orange T-shirt, standing among protesters at the entrance of Rampura Wapda Road around 9:46am on July 19.</p>
+  
+  <p><strong>&lt;&lt;Insert Video: ramzan_killing&gt;&gt;</strong></p>
+  
+  <p>Just about 2:38 minutes later, Ramzan collapses, as a single bullet pierces his neck. He was shot from the front, where a contingent of 27 BGB personnel was positioned. At least 11 of them were carrying assault rifles, our forensic analysis finds.</p>
+  
+  <p>In contrast, 35 police personnel were nearby, but only six carried weapons, mostly non-lethal (shotguns and gas guns). Twenty-one police officers carried only shields and sticks.</p>
+  
+  <p>The shooter is not visible, but the distance and wound are consistent with a shot from a high-velocity rifle.&nbsp;</p>
+  
+  <p>According to an eyewitness, who watched the events unfold from a window nearby, protesters began congregating on the streets from 6:00am. An initial police advance around 7:00am led to a cat-and-mouse dynamic.&nbsp;</p>
+  
+  <p>"When the police came up the main road, the protesters went inside the lane to hide," he said. "Then the police went away... the protesters came back into the street."</p>
+  
+  <p>This pattern repeated until a joint BGB and police force advanced from the Rampura Bridge road.&nbsp;</p>
+  
+  <p>He described how the police advanced as far as the Al Kadiya restaurant and then began to pull back. "When they started going back, people came out from the alleyways. They thought the police had gone," he recalled.&nbsp;</p>
+  
+  <p>"At that point, there was a gunshot by the BGB. The boy just fell," he added.</p>
+  
+  <h2>Who killed Ismail?</h2>
+  
+  <p>An image of rickshaw puller, Md Ismail, lying in a pool of blood in front of Delta Hospital in Banasree, went viral after the July protest. A journalist of The Daily Star who was on the ground tracking the BGB's movements and the unfolding bloodshed on July 19 in the area also took his photos and videos.&nbsp;</p>
+  
+  <p>The eyewitness account of our journalist and the photographs provide a direct trail of evidence.</p>
+  
+  <p>He said a BGB unit, armed with Type-56 SMGs, was advancing from the BTV Centre towards the Abul Hotel area around 4:50pm.</p>
+  
+  <p>They were accompanied by police, who were mostly equipped with less-lethal shotguns and tear gas canisters. The journalist, who was positioned just behind the BGB contingent, said that the unit was "firing live rounds while advancing."</p>
+  
+  <p>In multiple footage, we see a BGB officer leading the pack. He was holding an assault rifle. It was about 47 metres from Delta Hospital.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;Insert Video: ismail_killing_delta_hospital&gt;&gt;</strong></p>
+  
+  <p>Our journalist, while slowly moving behind the&nbsp; BGB-police contingent, suddenly turned right and saw the blood-soaked body of Ismail. Before that, he took a photograph of the BGB officer in question in a firing position a little past Delta Hospital. The photo was taken from behind, so the officer's face was not visible.&nbsp;&nbsp;</p>
+  
+  <p>Md Nazim Uddin, a security guard of the hospital who witnessed the killing, said Ismail was shot in the back of the head as he tried to flee from bullets coming from the direction of Rampura TV centre around 5:00pm.&nbsp;</p>
+  
+  <p>This matches the description of our journalist. Photographs he took from the scene document a catastrophic exit wound that shattered the back of his skull, leaving brain matter visible in the pool of blood on the pavement.&nbsp;</p>
+  
+  <p>In addition, the images reveal at least one distinct bullet entry wound on his right chest, the dark puncture mark stark against his blood-soaked shirt. The bullet wound on his chest was still fresh with blood oozing out, suggesting he was shot a second time.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;Insert: ismail_body&gt;&gt;</strong></p>
+  
+  <p>According to the guard, hospital staff and protesters twice attempted to retrieve Ismail's body but were forced back as shots were fired in their direction.</p>
+  
+  <p>As proof of the indiscriminate shooting, the guard pointed to bullet holes still visible on the hospital's front walls.&nbsp;</p>
+  
+  <p><strong>&lt;&lt;use footage of bullet holes in the wall&gt;&gt;</strong></p>
+  
+  <p>The indiscriminate nature of the shooting is highlighted in another video, which shows hospital staff rushing back into the building as shots ring out just feet from where Ismail lay dead.</p>
+  
+  <p><strong>&lt;&lt;use footage from inside the hospital&gt;&gt;</strong></p>
+  
+  <p>According to Ismail's wife Lucky Begum, the ambulance carrying his body to Brahmanbaria for burial was intercepted twice by BGB later that night, once in Meradia and then right after crossing Trimohoni bridge, about 1km from Meradia and the exit point of Dhaka towards Kachpur.&nbsp;&nbsp;</p>
+  
+  <p>"They asked us how he [Ismail] died and many other questions related to the protests. They let us pass only after we told them that Ismail died in a rickshaw accident and did not participate in the protests," Lucky added.</p>
+  
+  <h2>The unseen killings</h2>
+  
+  <p>"Maa, don't worry, I will be back in two minutes."</p>
+  
+  <p>It was 2:30pm on July 19 when Masuda Jaman heard those final, reassuring words from her son Mostofa Zaman Samudra, 17. Worried about the escalating violence on the streets of Rampura, she had called to tell him to come home.</p>
+  
+  <p>But for the mother, the two minutes stretched into an agonising eternity of unanswered phone calls. After 4:00pm, a message arrived from one of Samudra's friends: he had been shot.&nbsp;</p>
+  
+  <p>The family rushed to Delta Hospital, but their son was already unresponsive. A single bullet had torn through his left hand and lodged near his left lung.</p>
+  
+  <p>Eyewitnesses told his mother that Samudra was shot near the TV Centre road sometime between 3:00 and 4:00pm. While no direct footage of Samudra being shot has surfaced, the time and location of his death place him squarely in a zone of intense BGB activity.</p>
+  
+  <p>Our investigation tracked BGB personnel, armed with lethal weapons, operating throughout the Rampura-Banasree corridor that afternoon.&nbsp;</p>
+  
+  <p>Lt Col Redwan, the officer who was seen shooting in the direction where Ashiqul's body was found, was also filmed firing his rifle at protesters beside an APC and below a footover bridge near the Rampura TV Branch of Agrani Bank, the same area where Samudra was fatally wounded.</p>
+  
+  <p>An eyewitness told this newspaper that he saw Samudra's body lying on top of a road divider opposite Delta Hospital.&nbsp;</p>
+  
+  <h2>Shield of lies</h2>
+  
+  <p>The legal framework for the use of lethal force by security forces against civilian assemblies in Bangladesh is strictly defined in Chapter IX of the Code of Criminal Procedure, 1898 (CrPC).</p>
+  
+  <p>It mandates that a force like the BGB can only use force to disperse a crowd after a verbal command from an executive magistrate or a police commissioner.&nbsp;</p>
+  
+  <p>The use of military-grade force is a final resort, permissible only when an assembly cannot otherwise be dispersed and only upon the explicit order of the highest-ranking magistrate present. Even then, the force used must be minimal, aiming to "do as little injury to person and property" as possible.</p>
+  
+  <p>Recently, the deputy commissioner's office in Dhaka sent a document detailing the deployment of executive magistrates alongside BGB units to the International Crimes Tribunal. The Daily Star has obtained a copy.</p>
+  
+  <p>On July 19 in Rampura, it recorded the firing of at least 972 rounds from military-grade weapons like SMGs [Type-56] and rifles. It details a morning shift (8:00am-1:00pm) where 693 rounds were fired, and an afternoon shift (1:00pm-8:00pm) that saw another 279 rounds discharged.&nbsp;</p>
+  
+  <p>According to this log, Lt Col Redwan fired 17 shots on July 19 under the supervision of a magistrate.&nbsp;</p>
+  
+  <p>However, our extensive investigation and video footage from the scenes of the shootings in Rampura on July 19 shows BGB forces operating independently, without the presence of any executive magistrates as required by law.</p>
+  
+  <p>Multiple magistrates we contacted confirmed the list was prepared by the BGB and was submitted to the Dhaka Deputy Commissioner's office. They claim they were pressured to sign the documents on July 26-28, days after the killings, and that their signatures were backdated to July 18 and 19.&nbsp;</p>
+  
+  <p>They claimed BGB officials coerced them into signing the papers by claiming that only "blank shots" had been fired and that "no casualties occurred."</p>
+  
+  <p>"The day we had to sign the papers, there was a heavy presence of the BGB on the premises of the DC office and inside our superior's room. Although the military did not talk with us directly, our superiors threatened us with consequences if we did not sign the documents," one magistrate said.</p>
+  
+  <p>Multiple others we talked to separately echoed the same.</p>
+  
+  <p>According to the Border Guard Bangladesh Act, 2010, BGB falls under the control of the home ministry.</p>
+  
+  <p>"The force shall be under the overall superintendence of the Government and the Director General... shall direct and control the force per the general orders and instructions given by the Government from time to time," according to section 10(1).&nbsp;</p>
+  
+  <p>All other BGB personnel operate under the command of the director general.</p>
+  
+  <p>During the July uprising, a "Core Committee" operated as the central command-and-control hub for the violent crackdown. This committee, led by then home minister Asaduzzaman Khan Kamal, brought together the chiefs of all major security and intelligence agencies to devise and direct the suppression, the UN fact-finding report found.</p>
+  
+  <p>The report says BGB director general, Major General Mohammad Ashrafuzzaman Siddiqui, as a regular attendee of these meetings where the operational decisions to commit "systematic and widespread extrajudicial killings" were made.</p>
+  
+  <p>According to the report, on July 18, the day before the killings in Rampura intensified, "The home minister instructed the BGB, armed with military-grade 7.62mm rifles…. to use more lethal force to suppress the protests."&nbsp;</p>
+  
+  <p>Meanwhile, in a recent documentary aired on Al Jazeera, Siddiqui is seen consulting with Lt Col Redwan in Rampura. Two journalists we talked to said the BGB chief visited the Rampura area for a brief period on July 19 shortly after Juma prayers. The Daily Star could not independently verify this.&nbsp;</p>
+  
+  <p>A year after the uprising, most key members of the "core committee" are either in hiding or have been sacked. Maj Gen Siddiqui remains in his post.</p>
+  
+  <p>In a press conference after the fall of the Awami League government, he said he ordered his troops to show restraint, particularly on August 5.</p>
+  
+  <p>He repeatedly said that the order to deploy did not come from a single source but from "the country's highest, numerous former ministers" and "many senior figures." He said he was operating "from within pressure".</p>
+  
+  <p>He, however, acknowledged that "one or two incidents happened," singling out a specific officer, but without naming him.</p>
+  
+  <p>"We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters," he said.&nbsp;</p>
+  
+  <p>"We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him."</p>
+  
+  <p>"The punishment will be executed by the army," he added.</p>
+  
+  <p>Two high-level sources confirmed that the "antedate seniority of Redwan has been receded for six months in a summary court martial" after he returned to his main force: Bangladesh Army.&nbsp;</p>
+  
+  <p>On August 2, 2025, an ISPR spokesperson declined to comment on the current status of Lt Col Redwan, citing the matter sub judice.&nbsp;&nbsp;</p>
+  
+  <p>Lt Col Faisal, the Judge Advocate General of BGB, declined to comment on our findings, directing us to Shariful Islam, the public relations officer of BGB.</p>
+  
+  <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>
+  
+  <p>Additional reporting: Zyma Islam</p>
+  
+  <p>Additional research: Keero Adhnan Ahmed, Sharmin Joya</p>
+  
+  <p>Visualisation: Muhammad Imran</p>
+  
+  <p>Graphics: Anwar Sohel</p>
 </div>
 
 

@@ -31,6 +31,7 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@turf/turf": "^7.2.0",
 		"mapbox-gl": "^3.13.0",
 		"papaparse": "^5.5.3",
 		"scrollama": "^3.2.0"

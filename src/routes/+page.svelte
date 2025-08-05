@@ -127,6 +127,7 @@
 
 <BdrMap />
 
+
 <div class="article-text">
 
   <h2>Turning point in killing spree</h2>

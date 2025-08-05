@@ -1,21 +1,17 @@
-<script context="module">
-  export const ssr = false;
-</script>
-
 <script>
   import { onMount, onDestroy } from 'svelte';
   import mapboxgl from 'mapbox-gl';
   import Papa from 'papaparse';
   import scrollama from 'scrollama';
   import * as turf from '@turf/turf';
+  import { base } from '$app/paths';
+  import GifOverlay from '$lib/components/GifOverlay.svelte';
 
   let map;
   let mapContainer;
   
-  // --- NEW --- A reference to our invisible trigger element for resetting the map
   let resetTrigger;
   let observer;
-  // --- END NEW ---
 
   let allMarkerData = []; 
   let activeMarkers = new Map(); 
@@ -26,6 +22,14 @@
   let scrollySteps = [];
 
   let hasLineAnimationStarted = false;
+
+  // MODIFIED: Add anchorOffset to the state object
+  let gifOverlayState = {
+    isActive: false,
+    lngLat: null,
+    gifSrc: '',
+    anchorOffset: { x: 0, y: 0 } // Default offset
+  };
 
   const POLYGON_SOURCE_ID = 'step-polygon-source';
   const POLYGON_LAYER_ID = 'step-polygon-layer';
@@ -53,12 +57,10 @@
   ];
 
   function resetMapToInitialState() {
-    // --- ADDED FOR DEBUGGING ---
     console.log('%cExecuting resetMapToInitialState...', 'color: orange; font-weight: bold;');
     
     if (!map || !map.isStyleLoaded()) return;
 
-    // Only reset if a step has been activated. Prevents resetting when the page first loads.
     if (activeIndex === -1) {
       console.log('...Map already in initial state. No reset needed.');
       return;
@@ -93,9 +95,8 @@
     }
 
     hasLineAnimationStarted = false;
-    activeIndex = -1; // This is crucial
+    activeIndex = -1;
 
-    // --- ADDED FOR DEBUGGING ---
     console.log('...Map reset complete. activeIndex is now -1.');
   }
 
@@ -134,11 +135,12 @@
   }
 
   async function handleStepEnter(response) {
-    // --- ADDED FOR DEBUGGING ---
     console.log(`%cScrollama: Entering Step ${response.index}`, 'color: cyan;');
     
     const i = response.index;
     activeIndex = i;
+
+    gifOverlayState.isActive = false;
     
     const noClearIndices = [1, 2, 3, 4, 5, 7, 10, 11];
 
@@ -165,6 +167,21 @@
 
     const currentStep = scrollySteps[i];
     if (!currentStep) return;
+
+    if (i === 1) { 
+      const targetMarkerData = allMarkerData.find(m => m.sl === 2);
+      if (targetMarkerData) {
+        // MODIFIED: We now also define the anchor offset
+        gifOverlayState = {
+          isActive: true,
+          lngLat: [targetMarkerData.lon, targetMarkerData.lat],
+          gifSrc: `${base}/images/2.gif`,
+          // The marker is 26px high, and its anchor is at the bottom.
+          // The center is 13px up, so we use a negative Y offset.
+          anchorOffset: { x: 0, y: -13 }
+        };
+      }
+    }
 
     const noPanIndices = [1, 5, 7, 10, 11];
     
@@ -322,7 +339,6 @@
     });
 
     map.on('load', async () => {
-      // --- ADDED FOR DEBUGGING ---
       console.log('Mapbox style loaded.');
       map.addSource('route', { 
         type: 'geojson', 
@@ -338,16 +354,14 @@
   }
 
   onMount(async () => {
-    // --- ADDED FOR DEBUGGING ---
     console.log('Component Mounted. Fetching data...');
     
-    const response = await fetch('/bgb.csv');
+    const response = await fetch(`${base}/bgb.csv`);
     const csvText = await response.text();
     Papa.parse(csvText, {
       header: true,
       skipEmptyLines: true,
       complete: (result) => {
-        // --- ADDED FOR DEBUGGING ---
         console.log('Data parsed. Initializing map and scrollama.');
         const parsedData = result.data
           .map(row => ({
@@ -362,37 +376,37 @@
         
         scrollySteps = parsedData.map((row) => {
           if (row.sl === 1) {
-            return { id: `step-${row.sl}-polygon`, title: row.stepTitle, text: row.stepText, geojson_path: '/ramjan.geojson' };
+            return { id: `step-${row.sl}-polygon`, title: row.stepTitle, text: row.stepText, geojson_path: `${base}/ramjan.geojson` };
           } else if (row.sl === 7) {
-            return { id: `step-${row.sl}-polygon-7`, title: row.stepTitle, text: row.stepText, geojson_path: '/step7.geojson' };
+            return { id: `step-${row.sl}-polygon-7`, title: row.stepTitle, text: row.stepText, geojson_path: `${base}/step7.geojson` };
           } else if (row.sl === 13) {
-            return { id: `step-${row.sl}-polygon-14`, title: row.stepTitle, text: row.stepText, geojson_path: '/step14.geojson' };
+            return { id: `step-${row.sl}-polygon-14`, title: row.stepTitle, text: row.stepText, geojson_path: `${base}/step14.geojson` };
           } else if (row.sl === 3) {
              return { 
                 id: row.sl, title: row.stepTitle, text: row.stepText, 
                 marker_sl: row.sl, 
-                extra_geojson_path: '/delta.geojson',
+                extra_geojson_path: `${base}/delta.geojson`,
                 extra_geojson_label: 'Delta Hospital'
             };
           } else if (row.sl === 4) {
             return { 
                 id: row.sl, title: row.stepTitle, text: row.stepText, 
                 marker_sl: row.sl, 
-                extra_geojson_path: '/agrani.geojson',
+                extra_geojson_path: `${base}/agrani.geojson`,
                 extra_geojson_label: 'Agrani Bank'
             };
           } else if (row.sl === 5) {
             return { 
                 id: row.sl, title: row.stepTitle, text: row.stepText, 
                 marker_sl: row.sl, 
-                extra_geojson_path: '/delta.geojson',
+                extra_geojson_path: `${base}/delta.geojson`,
                 extra_geojson_label: 'Delta Hospital'
             };
           } else if (row.sl === 6) {
             return { 
                 id: row.sl, title: row.stepTitle, text: row.stepText, 
                 marker_sl: row.sl, 
-                extra_geojson_path: '/delta.geojson',
+                extra_geojson_path: `${base}/delta.geojson`,
                 extra_geojson_label: 'Delta Hospital'
             };
           } else {
@@ -410,19 +424,15 @@
         initMap();
         setupScrollama();
 
-        // --- NEW --- Setup the Intersection Observer for the dedicated reset trigger
         const observerOptions = {
-          root: null, // observes intersections relative to the viewport
+          root: null,
           rootMargin: "0px",
-          threshold: 0.1, // Fire when 10% of the trigger is visible
+          threshold: 0.1,
         };
 
         const observerCallback = (entries) => {
           entries.forEach(entry => {
-            // --- ADDED FOR DEBUGGING ---
             console.log(`Reset trigger intersecting: ${entry.isIntersecting}`);
-            
-            // If the trigger element is visible, it means we've scrolled above the steps.
             if (entry.isIntersecting) {
               resetMapToInitialState();
             }
@@ -431,11 +441,9 @@
 
         observer = new IntersectionObserver(observerCallback, observerOptions);
         if (resetTrigger) {
-          // --- ADDED FOR DEBUGGING ---
           console.log('Attaching IntersectionObserver to reset trigger.');
           observer.observe(resetTrigger);
         }
-        // --- END NEW ---
       }
     });
   });
@@ -443,13 +451,10 @@
   onDestroy(() => {
     activeMarkers.forEach(marker => marker.remove());
     if (map) map.remove();
-    // --- MODIFIED --- Disconnect the observer to prevent memory leaks
     if (observer) {
-      // --- ADDED FOR DEBUGGING ---
       console.log('Component Destroyed. Disconnecting observer.');
       observer.disconnect();
     }
-    // --- END MODIFIED ---
   });
 </script>
 
@@ -501,14 +506,13 @@
     transform: translateY(0);
   }
 
-  /* --- NEW --- Style for the invisible trigger element. It takes up no space. */
   .reset-trigger-element {
-    height: 1px; /* Must have some height to be observable */
+    height: 1px;
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    pointer-events: none; /* Make sure it's not clickable */
+    pointer-events: none;
   }
 
   :global(.circle-marker) {
@@ -523,8 +527,8 @@
   :global(.square-marker) {
     width: 17px;
     height: 17px;
-    background-color: #ff0000; /* Red */
-    border: 1px solid #ffffff; /* White border for contrast */
+    background-color: #ff0000;
+    border: 1px solid #ffffff;
     cursor: pointer;
   }
 </style>
@@ -532,10 +536,18 @@
 <div class="scrolly-container">
   <div class="graphic-container">
     <div bind:this={mapContainer} id="map"></div>
+    
+    <!-- MODIFIED: Pass the new anchorOffset prop -->
+    <GifOverlay 
+      map={map} 
+      isActive={gifOverlayState.isActive}
+      lngLat={gifOverlayState.lngLat}
+      gifSrc={gifOverlayState.gifSrc}
+      anchorOffset={gifOverlayState.anchorOffset}
+    />
   </div>
 
   <div class="scrolly-steps">
-    <!-- --- NEW --- This is the invisible trigger element. When it's on screen, the map resets. -->
     <div bind:this={resetTrigger} class="reset-trigger-element"></div>
     
     {#each scrollySteps as step, i (step.id)}

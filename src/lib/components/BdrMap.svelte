@@ -350,17 +350,19 @@
     
     let lastCamera = {
       type: 'flyTo',
-      options: { center: allCoordinates[0], zoom: 14, pitch: 0, bearing: 0, speed: 1.5, essential: true }
+      options: { center: [allCoordinates[0][0], allCoordinates[0][1] - 0.0015], zoom: 14, pitch: 0, bearing: 0, speed: 1.5, essential: true }
     };
 
     scrollySteps = tempSteps.map((step, i) => {
       if (step.show_all_markers) {
         const bounds = allMarkerData.reduce((b, m) => b.extend([m.lon, m.lat]), new mapboxgl.LngLatBounds());
-        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 80, speed: 0.8, maxZoom: 15 } };
+        // MODIFICATION: Added offset to shift view south
+        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 80, speed: 0.8, maxZoom: 15, offset: [0, -80] } };
       } else if (step.geojson_path && ![1,5,7,10,11].includes(i)) {
         const data = geojsonCache.get(step.geojson_path);
         const bounds = getBounds(data);
-        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 120, speed: 0.8, maxZoom: 17 } };
+        // MODIFICATION: Added offset to shift view south
+        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 120, speed: 0.8, maxZoom: 17, offset: [0, -60] } };
       } else if (step.marker_sl) {
         const mData = allMarkerData.find(m => m.sl === step.marker_sl);
         if (mData) {
@@ -368,10 +370,12 @@
             const nextStep = tempSteps[10];
             const t = allMarkerData.find(m => m.sl === nextStep.marker_sl);
             if (t) {
-              lastCamera = { type: 'flyTo', options: { center: [t.lon + 0.0005, t.lat], zoom: 16, speed:0.5, essential:true } };
+              // MODIFICATION: Subtracted from latitude to center south
+              lastCamera = { type: 'flyTo', options: { center: [t.lon + 0.0005, t.lat - 0.0015], zoom: 16, speed:0.5, essential:true } };
             }
           } else if (![1,5,7,10,11].includes(i)) {
-            lastCamera = { type: 'flyTo', options: { center: [mData.lon, mData.lat], zoom: 16.5, speed:0.5, essential:true } };
+            // MODIFICATION: Subtracted from latitude to center south
+            lastCamera = { type: 'flyTo', options: { center: [mData.lon, mData.lat - 0.0010], zoom: 16.5, speed:0.5, essential:true } };
           }
         }
       }
@@ -439,7 +443,7 @@
 
   .gradient-top {
     top: 0;
-    height: 7%;
+    height: 5%;
     background: linear-gradient(to bottom, white 0%, transparent 100%);
   }
 

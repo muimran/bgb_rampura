@@ -71,6 +71,11 @@
 </script>
 
 <svelte:head>
+  <!-- STEP 1: ADD THE GOOGLE FONT IMPORT HERE -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
@@ -204,12 +209,12 @@
   }
   
   .victim-modal-content img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
+  width: 100%;
+  aspect-ratio: 4 / 3; /* <--- NEW: Sets a 4:3 aspect ratio */
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
 
   .victim-modal-text {
     padding: 1.5rem 2rem 2rem 2rem;
@@ -269,13 +274,15 @@
   }
 
   @media (max-width: 600px) {
-    .victim-photo-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .victim-modal-content img {
-      height: 200px;
-    }
+  .victim-photo-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+  .victim-modal-content img {
+    /* The height: 200px; rule was here. It's no longer needed because
+       aspect-ratio will handle it automatically. You can remove the
+       entire rule if it's empty, or just ensure the height is gone. */
+  }
+}
 
   /* --- NEW STYLES FOR WEAPONS ANALYSIS BOX --- */
   .analysis-box {
@@ -332,6 +339,54 @@
     font-style: italic;
     line-height: 1.4;
   }
+
+  /* --- STEP 2: ADD THESE NEW STYLES FOR THE PULL QUOTE --- */
+  .pull-quote {
+    position: relative; /* Needed for the decorative quote mark */
+    font-family: 'Playfair Display', serif; /* Use our new font */
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    text-align: center;
+    color: #1a1a1a;
+    max-width: 600px;
+    margin: 4rem auto; /* Add space above and below */
+    padding: 1rem;
+  }
+
+  /* Optional: Add a large decorative quotation mark in the background */
+  .pull-quote::before {
+    content: '“';
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8rem;
+    color: #e9ecef; /* A very light gray */
+    z-index: -1; /* Puts it behind the text */
+  }
+
+  /* Style for the quote's source/citation */
+  .pull-quote cite {
+    display: block; /* Puts it on its own line */
+    text-align: center;
+    margin-top: 1rem;
+    font-family: 'Georgia', serif; /* Match the main article font */
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: normal;
+    color: #555;
+  }
+
+  .click-info {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem; /* Adds space between the text and the photos */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 </style>
 <HeroCollage />
 
@@ -391,7 +446,20 @@
   <p><a href="https://www.ohchr.org/en/documents/country-reports/ohchr-fact-finding-report-human-rights-violations-and-abuses-related">The UN fact-finding team</a> found that after the attack on BTV station, the BGB was used as a "strike force" to reinforce orders to use lethal force. The instruction was issued by both the Prime Minister's Office and home ministry on the evening of July 18 and again on July 19, leading to a near-tripling of reported deaths.&nbsp;</p>
   <p>Thr UN report gives an overview of the violence in this area, classifying "Rampura and Badda (19 July)" as a specific case of indiscriminate shooting. The UN found that BGB and police shot lethal ammunition directly into crowds.&nbsp;</p>
   <p>One witness recalled how security forces "cornered protesters from three sides and fired simultaneously.</p>
-  <p>"Bullets were dropping down on us like rain," the UN report quotes him.&nbsp;</p>
+  
+  <blockquote class="pull-quote">
+    The use of force by Border Guard Bangladesh (BGB) systematically failed to adhere to legal principles and that a large percentage of killings and injuries... violated international human rights law.
+    <cite>— Maj Gen Mohammad Ashrafuzzaman Siddiqui
+      The UN Fact-Finding Report</cite>
+  </blockquote>
+
+
+  <blockquote class="pull-quote">
+    We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters… We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him.
+    <cite>— Maj Gen Mohammad Ashrafuzzaman Siddiqui
+      Director General, BGB</cite>
+  </blockquote>
+
   <p>The UN report also documents how hospitals in the area were overwhelmed, with one receiving over 600 injured patients and 20 dead bodies that day.</p>
   <p>The Daily Star saw 13 bodies in three hospitals of Rampura-Banasree in one hour from around 4:00-5:00pm that day.&nbsp;</p>
   <p>Separately, a TGI &amp; ITJP investigation documented at least 23 killings in Rampura-Banasree area on July 19, according to <a href="https://techglobalinstitute.com/wp-content/uploads/2025/01/Bloodshed_In_Bangladesh_V6.pdf">a report published in January 2025</a>.&nbsp;</p>
@@ -430,6 +498,10 @@
     </div>
   </Accordion>
 </div>
+
+<!-- ... Rest of your article content ... -->
+<!-- The rest of your file remains exactly the same as before. -->
+<!-- I am omitting the rest for brevity. -->
 
 <div class="article-text">
   <h2>Morning showed the day</h2>
@@ -486,6 +558,10 @@
       <h2 class="accordion-heading">Victim Profiles</h2>
     </div>
     <div slot="collapsible-content">
+      
+      <!-- ADD THIS NEW LINE OF TEXT HERE -->
+      <p class="click-info">Click on a photo to read the victim's story.</p>
+  
       <div class="victim-photo-grid">
         {#each victimsData as victim (victim.id)}
           <button class="victim-photo-button" on:click={() => (activeVictim = victim)}>
@@ -525,7 +601,7 @@
   <p>"The punishment will be executed by the army," he added.</p>
   <p>Two high-level sources confirmed that the "antedate seniority of Redwan has been receded for six months in a summary court martial" after he returned to his main force: Bangladesh Army.&nbsp;</p>
   <p>On August 2, 2025, an ISPR spokesperson declined to comment on the current status of Lt Col Redwan, citing the matter sub judice.&nbsp;&nbsp;</p>
-  <p>Lt Col Faisal, the Judge Advocate General of BGB, declined to comment on our findings, directing us to Shariful Islam, the public relations officer of BGB.</p>
+  <p>The Judge Advocate General of BGB, declined to comment on our findings, directing us to Shariful Islam, the public relations officer of BGB.</p>
   <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>
 </div>
 

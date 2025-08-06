@@ -8,7 +8,7 @@
   import GifOverlay from '$lib/components/GifOverlay.svelte';
 
   // ======================== START: NEW STATE FOR INITIAL TEXT BOX ========================
-  let initialTextBoxVisible = true;
+  let initialTextBoxVisible = flase;
   let hasScrolled = false; // This will be true once the user scrolls, triggering the fade
   // ======================== END: NEW STATE FOR INITIAL TEXT BOX ========================
 

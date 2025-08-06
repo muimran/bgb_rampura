@@ -69,6 +69,7 @@
         <p><span class="credit-label">Editing:</span> Martin Swapan Pandey</p>
         <p><span class="credit-label">Research:</span> Keero Adhnan Ahmed, Ibrahim Khalil Ibu, Sharmin Sikder, Towhidul Islam Sakib</p>
         <p><span class="credit-label">Visualisation and Map:</span> Muhammad Imran</p>
+        <p><span class="credit-label">Photos:</span> Ibrahim Khalil Ibu, Collected</p>
         <p><span class="credit-label">Graphics:</span> Anwar Sohel</p>
     </div>
 </div>

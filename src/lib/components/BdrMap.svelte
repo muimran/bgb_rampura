@@ -326,7 +326,7 @@
       if ([5,6].includes(row.sl)) return { id:row.sl, title:row.stepTitle, text:row.stepText, marker_sl:row.sl, extra_geojson_path:`${base}/delta.geojson`, extra_geojson_label:'Delta Hospital' };
       return { id:row.sl, title:row.stepTitle, text:row.stepText, marker_sl:row.sl };
     });
-    tempSteps.push({ id: 'final-step-all-markers', title: 'All Incidents', text: 'This map shows all the reported incidents along the route.', show_all_markers: true });
+    tempSteps.push({ id: 'final-step-all-markers', title: 'The path of terror', text: '', show_all_markers: true });
 
     const geojsonCache = new Map();
     const geojsonFetches = tempSteps

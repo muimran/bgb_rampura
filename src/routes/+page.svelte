@@ -79,15 +79,35 @@
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "CreativeWork",
-      "name": "Lethal vs Nonlethal Ammunition Visualisation",
-      "description": "An interactive visualisation built using SvelteKit.",
-      "datePublished": "2025-08-02",
+      "@type": "NewsArticle",
+      "headline": "Anatomy of BGB shootings in Rampura",
+      "name": "BGB shootings in Rampura",
+      "description": "A joint investigation by The Daily Star and Tech Global Institute reveals how a Dhaka neighbourhood became a hotspot of state-sanctioned killings on July 19, 2024.",
+      "articleSection": "July Uprising",
+      "datePublished": "2025-08-07",
       "author": [
-        { "@type": "Person", "name": "Muhammad Imran", "url": "https://muhammadimran.com" },
-        { "@type": "Person", "name": "Zyma Islam" }
+        { "@type": "Person", "name": "Muhammad Imran", "url": "https://muhammadimran.com" }
       ],
-      "keywords": ["Bangladesh", "data journalism"]
+       "publisher": {
+        "@type": "Organization",
+        "name": "The Daily Star"
+      },
+      "keywords": [
+        "data journalism", 
+        "investigative journalism", 
+        "forensic analysis", 
+        "data visualization", 
+        "Bangladesh", 
+        "BGB shootings", 
+        "July Uprising", 
+        "Rampura", 
+        "Dhaka", 
+        "human rights violations", 
+        "The Daily Star", 
+        "Tech Global Institute",
+        "mapbox",
+        "data visualisation"
+      ]
     })}
   </script>
 </svelte:head>

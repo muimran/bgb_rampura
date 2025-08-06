@@ -1,6 +1,21 @@
 <script>
   import BdrMap from '$lib/components/BdrMap.svelte';
+  import { base } from '$app/paths'; 
+  import CustomVideoPlayer from '$lib/components/CustomVideoPlayer.svelte';
+  
+  let isOpen = false;
+  let accordionContainer;
 
+  // This function handles both toggling the state and fixing the scroll position.
+  function toggleAccordion() {
+    // If the accordion is currently open (meaning this click will close it)...
+    if (isOpen) {
+      // ...then scroll the top of the accordion container into view smoothly.
+      accordionContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // Finally, toggle the open/closed state.
+    isOpen = !isOpen;
+  }
 </script>
 
 <svelte:head>
@@ -26,10 +41,6 @@
     })}
   </script>
 </svelte:head>
-
-
-
-
 
 <style>
   .article-text {
@@ -60,16 +71,118 @@
   }
   /* Add this to your <style> block */
 
-.video-embed {
-  width: 100%; /* Make it fill the full width of the text column */
-  aspect-ratio: 9 / 16; /* Explicitly set a vertical 9:16 ratio */
+
+/* Common styles applied to BOTH video types */
+.video-embed, .video-embed-horizontal {
+  width: 100%;
   border: none;
-  margin: 1.5em 0; /* Optional: Adds vertical space */
+  margin: 1.5em 0;
+}
+
+/* Specific style ONLY for VERTICAL videos */
+.video-embed {
+  aspect-ratio: 9 / 16;
+}
+
+/* Specific style ONLY for HORIZONTAL videos */
+.video-embed-horizontal {
+  aspect-ratio: 16 / 9;
+}
+
+.article-image {
+    width: 100%; /* Make the image fill the container's width */
+    height: auto; /* Maintain the aspect ratio */
+    display: block; /* Prevents extra space below the image */
+    /* REMOVE the margin from here */
+  }
+  
+  /* ADD these new styles for figure and figcaption */
+  figure {
+    margin: 1.5em 0; /* Apply the vertical margin to the figure element */
+    padding: 0;
+  }
+
+  figcaption {
+    margin-top: 0.75em; /* Space between image and caption */
+    padding: 0 1em; /* Optional: adds a little horizontal space */
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #555; /* A slightly lighter color for the caption text */
+    text-align: center; /* Or 'left' if you prefer */
+  }
+
+
+
+
+  /* Main container for the component */
+.accordion-container {
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px;          /* Soft rounded corners */
+  padding: 1.5rem;             /* More spacious padding */
+  margin: 2.5rem 0;            /* Keeps original vertical spacing */
+  border: 1px solid #e5e5e5;   /* A subtle border instead of top/bottom lines */
+}
+
+/* Make the heading inside the accordion stand out with a modern font */
+.accordion-container h2 {
+  margin-top: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* The div for the content that collapses */
+.accordion-collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  /* Smoother and slightly longer transition */
+  transition: max-height 0.6s ease-in-out;
+}
+
+/* When the 'open' class is added, the content expands */
+.accordion-collapsible-content.open {
+  max-height: 5000px; /* A large value to ensure all content fits */
+  padding-top: 0.5rem; /* Add a little space when it opens */
+}
+
+/* The button that triggers the accordion */
+.accordion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 0.95rem; /* Slightly smaller for a refined look */
+  font-weight: 600;
+  color: #333; /* Dark gray for better contrast on the light bg */
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Pill shape */
+  padding: 0.5rem 1rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.accordion-toggle:hover {
+  background-color: #f0f0f0; /* Subtle hover effect */
+  border-color: #bbb;
+}
+
+/* The little arrow icon */
+.accordion-toggle .icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Rotates the icon when the section is open */
+.accordion-toggle .icon.rotated {
+  transform: rotate(180deg);
 }
 </style>
 
 <div class="article-text">
 
+  <!-- ... a large portion of your article text ... -->
   <p>It was 6:14pm on Friday, July 19, 2024. Two Border Guard Bangladesh (BGB) personnel were advancing into Bansree G Block in Dhaka.</p>
 
   <p>One, a taller man in a red helmet, carried a shield and a stick. The other, shorter and wearing a tactical vest with "BGB" stamped in bold white letters, carried a 7.62mm Type 56 rifle, the Chinese version of the AK variant, according to independently verified footage, and supporting assessment by weapons experts.</p>
@@ -77,23 +190,37 @@
   <p>Nine seconds into the footage, the shorter officer opens fire. He fires once to his left, then pivots, takes a few steps forward, and takes another shot to his right.&nbsp;</p>
   
 <!-- This is the container DIV -->
-<iframe
-  class="video-embed" 
-  src="https://www.youtube.com/embed/D3P9DEmtXLE"
-  title="YouTube video: BGB officer opens fire in Banasree"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen
-  loading="lazy">
-</iframe>
-  
+
+<CustomVideoPlayer 
+  videoId="AZG9-nUgRXY" 
+  title="BGB officer opens fire in Banasree 1"
+  orientation="vertical"
+/>
+
   <p>Another picture <strong>captured moments later</strong> reveals a man lying motionless in front of a shop on the G Block avenue, exactly where the officer had fired the second shot.&nbsp;</p>
   
-  <p><strong>&lt;&lt;Insert Photo: redwan_g_block_Banasree_3&gt;&gt;</strong></p>
+
   
+<figure>
+  <img
+    class="article-image"
+    src="{base}/images/redwan_g_block_Banasree_3.jpg"
+    alt="A man lies motionless on the pavement in Banasree G Block after the shooting."
+    loading="lazy"
+  />
+  <figcaption></figcaption>
+</figure>
+
+
   <p>In the next footage, the officer repositions himself, first taking a firing stance on G Block avenue to shoot towards Road 1 of F Block. He then moves again, aiming and firing his rifle down Road 1 of G Block.</p>
   
-  <p><strong>&lt;&lt;redwan_g_block_Banasree_3&gt;&gt;</strong></p>
+
+  <CustomVideoPlayer 
+  videoId="D3P9DEmtXLE" 
+  title="BGB officer opens fire in Banasree 1"
+  orientation="vertical"
+/>
+
   
   <p>That bullet most likely took the life of 14-year-old Ashiqul Islam, as narrated by two eyewitnesses, and is indicative through photographs and videos from the day.</p>
   
@@ -143,8 +270,7 @@
 
   <h2>Turning point in killing spree</h2>
 
-  <p>Ashiqul's death was the brutal climax of a day that saw the Rampura-Banasree area of Dhaka being turned into a killing zone.&nbsp;</p>
-  
+  <!-- ... more article text ... -->
   <p>From July 16 till August 5, the BGB deployed nearly 4,000 members to 58 locations across the country, according to the UN fact-finding report published in February 2025.&nbsp;</p>
   
   <p><a href="https://www.thedailystar.net/news/investigative-stories/news/shoot-directly-hasinas-order-and-deadly-aftermath-3946896">An investigation by The Daily Star</a> found that on the evening of July 18, ousted prime minister Sheikh Hasina gave a "shoot-on-sight" order that the UN report confirms was part of a broader government directive to use lethal force. From the following day, BGB, Rab, and police acted on these orders, carrying out extrajudicial killings in different parts of the country, the UN report said.</p>
@@ -161,11 +287,11 @@
   
   <p>The second unit, called in as reinforcement, was the 26th Battalion, commanded by Lt Col Redwaul Islam, sources in the International Crimes Tribunal said.</p>
   
-  <p>The Daily Star also spotted an Armoured Personnel Carrier (APC) from the 62nd (Narayanganj) at Aftabnagar Gate at 5:00pm on July 19, suggesting that the government ordered a large-scale BGB deployment in the area.&nbsp;</p>
+  <p>The Daily Star also spotted an Armoured Personnel Carrier (APC) from the 62nd (Narayanganj) battalion at Aftabnagar Gate at 5:00pm on July 19, suggesting that the government ordered a large-scale BGB deployment in the area.&nbsp;</p>
   
-  <p>The UN fact-finding team found that after the attack on BTV station, the BGB was used as a "strike force" to reinforce orders to use lethal force. The instruction was issued by both the Prime Minister's Office and home ministry on the evening of July 18 and again on July 19, leading to a near-tripling of reported deaths.&nbsp;</p>
+  <p><a href="https://www.ohchr.org/en/documents/country-reports/ohchr-fact-finding-report-human-rights-violations-and-abuses-related">The UN fact-finding team</a> found that after the attack on BTV station, the BGB was used as a "strike force" to reinforce orders to use lethal force. The instruction was issued by both the Prime Minister's Office and home ministry on the evening of July 18 and again on July 19, leading to a near-tripling of reported deaths.&nbsp;</p>
   
-  <p><a href="https://www.ohchr.org/en/documents/country-reports/ohchr-fact-finding-report-human-rights-violations-and-abuses-related">The UN report </a>gives an overview of the violence in this area, classifying "Rampura and Badda (19 July)" as a specific case of indiscriminate shooting. The UN found that BGB and police shot lethal ammunition directly into crowds.&nbsp;</p>
+  <p>Thr UN report gives an overview of the violence in this area, classifying "Rampura and Badda (19 July)" as a specific case of indiscriminate shooting. The UN found that BGB and police shot lethal ammunition directly into crowds.&nbsp;</p>
   
   <p>One witness recalled how security forces "cornered protesters from three sides and fired simultaneously.</p>
   
@@ -181,45 +307,84 @@
   
   <p>However, this directly contradicts evidence and reports from other government intelligence agencies such as the NSI. The NSI report sent to the UN mentions three killings by the BGB on July 19 in and around Rampura-Banasree.</p>
   
-  <h2>Identifying A Potential Shooter: Methodology</h2>
   
-  <p>Multiple eyewitnesses in Rampura said they saw BGB personnel wearing vests, particularly a small-statured officer, shooting at unarmed protesters. To verify the direction of movement, and the role of BGB personnel that fired shots towards Ashiqul were achieved through a multi-step forensic analysis of 15 different videos and images during a joint investigation by The Daily Star and Tech Global Institute (TGI), a technology nonprofit whose forensics investigation arm has been documenting digital evidence related to the Monsoon Revolution.&nbsp;</p>
+  <!-- MODIFICATION HERE: bind:this added -->
+  <div class="accordion-container" bind:this={accordionContainer}>
+    <!-- This part is always visible -->
+    <div class="accordion-visible-content">
+      <h2>Identifying A Potential Shooter</h2>
+      <p>Multiple eyewitnesses in Rampura said they saw BGB personnel wearing vests, particularly a small-statured officer, shooting at unarmed protesters. To verify the direction of movement, and the role of BGB personnel that fired shots towards Ashiqul were achieved through a multi-step forensic analysis of 15 different videos and images during a joint investigation by The Daily Star and Tech Global Institute (TGI), a technology nonprofit whose forensics investigation arm has been documenting digital evidence related to the Monsoon Revolution.&nbsp;</p>
+      <p>While TGI's forensic analysis confirmed a match by comparing the Banasree and Rampura footage, indicative that the same individual was likely present in both locations on that day, The Daily Star independently verified his name and identity by speaking with sources in intelligence agencies, the International Crimes Tribunal, and journalists who were present on the ground.</p>
+    </div>
   
-  <p>While TGI's forensic analysis confirmed a match by comparing the Banasree and Rampura footage, indicative that the same individual was likely present in both locations on that day, The Daily Star independently verified his name and identity by speaking with sources in intelligence agencies, the International Crimes Tribunal, and journalists who were present on the ground.</p>
+    <!-- This is the content that will be revealed -->
+    <div class="accordion-collapsible-content" class:open={isOpen}>
+      <p>The forensic analysis was based on two primary methods: chronolocation and reconstruction, and pattern configuration. The premise of the latter is based on identifying similar or the same patch configurations on uniforms at a given time, allowing us to distinguish an individual's uniform from others.&nbsp;</p>
+      <p>Using multiple images of BGB officers from the day and location, TGI's forensics investigators identified a unique combination of patches and shapes on specific areas of their uniform: the upper chest, chest, right wrist, and right and left thighs.&nbsp;</p>
   
-  <p>The forensic analysis was based on two primary methods: chronolocation and reconstruction, and pattern configuration. The premise of the latter is based on identifying similar or the same patch configurations on uniforms at a given time, allowing us to distinguish an individual's uniform from others.&nbsp;</p>
+
+      <figure>
+        <img
+          class="article-image"
+          src="{base}/images/redwan_dit_road.png"
+          alt="A man lies motionless on the pavement in Banasree G Block after the shooting."
+          loading="lazy"
+        />
+        <figcaption></figcaption>
+      </figure>
+
+
+      <figure>
+        <img
+          class="article-image"
+          src="{base}/images/redwan_dit_road_2.png"
+          alt="A man lies motionless on the pavement in Banasree G Block after the shooting."
+          loading="lazy"
+        />
+        <figcaption></figcaption>
+      </figure>
+
+
+      
+      <p>This distinct pattern was then compared to footage of soldiers filmed shooting in Banasree, where Ashiqul was killed on the same day and time. The analysis of the uniform's camouflage pattern confirmed an exact match with the patch configuration for one individual's uniform. We consistently found the same patch configuration on one uniformed BGB officer of small stature, who appeared in multiple footage recorded on the same day in Rampura-Banasree, indicating they are likely the same individual.&nbsp;&nbsp;</p>
+      <p>To confirm the distinctiveness of the camouflage patches, it was compared against the camouflage patterns on uniforms of other BGB soldiers at the scene on the same day. None of the other uniforms shared this specific combination of patches.</p>
+      <p>This analysis was further supported by observing that the small-statured BGB officer was consistently accompanied by an accomplice wearing a red helmet, and hand gloves in multiple footage from Rampura and Banasree on that day.&nbsp;</p>
   
-  <p>Using multiple images of BGB officers from the day and location, TGI's forensics investigators identified a unique combination of patches and shapes on specific areas of their uniform: the upper chest, chest, right wrist, and right and left thighs.&nbsp;</p>
+      <img
+        class="article-image"
+        src="{base}/images/redwan_accomplice.png"
+        alt="The identified BGB officer seen with his accomplice in a red helmet."
+        loading="lazy"
+      />
   
-  <p><strong>&lt;&lt;Insert image: redwan_dit_road&gt;&gt;</strong></p>
+      <p>To further corroborate, this investigation used facial reconstruction and matching techniques to assess whether the distinct facial features for the suspect could be matched throughout different footage using open‑source tools.&nbsp;</p>
+      <p>We used three different facial recognition and matching models that generate high‑dimensional embeddings of unique facial features. All three models produced positive matches for the suspect.</p>
+      <p>To reduce risks of false positives, the analyses were replicated with facial features of other BGB soldiers present at the scene. It consistently returned a negative match for all other personnel.</p>
+      <p>While facial reconstruction, recognition and matching shows promise, the method has several limitations, including the quality of images or footage available, restricted negative testing, and environmental factors. To address ethical and privacy considerations, the analysis only used publicly available materials used for journalistic or public awareness purposes, and strictly limited data collection, processing and retention throughout the process.&nbsp;</p>
+      <p>The Daily Star shared clear footage of the small-statured officer with three high-level sources who confirmed the person in question is Lt Col Redwan. One photojournalist present at the scene on July 19 said he also saw the name plaque, which read: Redwan.</p>
+    </div>
   
-  <p><strong>&lt;&lt;Insert image: redwan_dit_road_2&gt;&gt;</strong></p>
-  
-  <p>This distinct pattern was then compared to footage of soldiers filmed shooting in Banasree, where Ashiqul was killed on the same day and time. The analysis of the uniform's camouflage pattern confirmed an exact match with the patch configuration for one individual's uniform. We consistently found the same patch configuration on one uniformed BGB officer of small stature, who appeared in multiple footage recorded on the same day in Rampura-Banasree, indicating they are likely the same individual.&nbsp;&nbsp;</p>
-  
-  <p>To confirm the distinctiveness of the camouflage patches, it was compared against the camouflage patterns on uniforms of other BGB soldiers at the scene on the same day. None of the other uniforms shared this specific combination of patches.</p>
-  
-  <p>This analysis was further supported by observing that the small-statured BGB officer was consistently accompanied by an accomplice wearing a red helmet, and hand gloves in multiple footage from Rampura and Banasree on that day.&nbsp;</p>
-  
-  <p><strong>&lt;&lt;Insert Image: redwan_accomplice_match&gt;&gt;</strong></p>
-  
-  <p><strong>&lt;&lt;Insert Image: redwan_accomplice_match_2&gt;&gt;</strong></p>
-  
-  <p>To further corroborate, this investigation used facial reconstruction and matching techniques to assess whether the distinct facial features for the suspect could be matched throughout different footage using open‑source tools.&nbsp;</p>
-  
-  <p>We used three different facial recognition and matching models that generate high‑dimensional embeddings of unique facial features. All three models produced positive matches for the suspect.</p>
-  
-  <p>To reduce risks of false positives, the analyses were replicated with facial features of other BGB soldiers present at the scene. It consistently returned a negative match for all other personnel.</p>
-  
-  <p>While facial reconstruction, recognition and matching shows promise, the method has several limitations, including the quality of images or footage available, restricted negative testing, and environmental factors. To address ethical and privacy considerations, the analysis only used publicly available materials used for journalistic or public awareness purposes, and strictly limited data collection, processing and retention throughout the process.&nbsp;</p>
-  
-  <p>The Daily Star shared clear footage of the small-statured officer with three high-level sources who confirmed the person in question is Lt Col Redwan. One photojournalist present at the scene on July 19 said he also saw the name plaque, which read: Redwan.</p>
-  
+    <!-- MODIFICATION HERE: on:click changed to call the new function -->
+    <button class="accordion-toggle" on:click={toggleAccordion} aria-expanded={isOpen}>
+      <span>{isOpen ? 'Show Less' : 'Read the Full Analysis'}</span>
+      <svg class="icon" class:rotated={isOpen} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+  </div>
+
   <h2>Morning showed the day</h2>
   
+  <!-- ... rest of your article ... -->
   <p>The day's bloodshed began early. Verified footage shows Ramzan, a 24-year-old in an orange T-shirt, standing among protesters at the entrance of Rampura Wapda Road around 9:46am on July 19.</p>
   
-  <p><strong>&lt;&lt;Insert Video: ramzan_killing&gt;&gt;</strong></p>
+  <iframe
+  class="video-embed-horizontal" 
+  src="https://www.youtube.com/embed/pCBiuSl1-dY"
+  title="YouTube video: Verified footage shows Ramzan among protesters"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+  loading="lazy">
+</iframe>
   
   <p>Just about 2:38 minutes later, Ramzan collapses, as a single bullet pierces his neck. He was shot from the front, where a contingent of 27 BGB personnel was positioned. At least 11 of them were carrying assault rifles, our forensic analysis finds.</p>
   
@@ -237,7 +402,9 @@
   
   <p>"At that point, there was a gunshot by the BGB. The boy just fell," he added.</p>
   
+  
   <h2>Who killed Ismail?</h2>
+
   
   <p>An image of rickshaw puller, Md Ismail, lying in a pool of blood in front of Delta Hospital in Banasree, went viral after the July protest. A journalist of The Daily Star who was on the ground tracking the BGB's movements and the unfolding bloodshed on July 19 in the area also took his photos and videos.&nbsp;</p>
   
@@ -249,7 +416,12 @@
   
   <p>In multiple footage, we see a BGB officer leading the pack. He was holding an assault rifle. It was about 47 metres from Delta Hospital.&nbsp;</p>
   
-  <p><strong>&lt;&lt;Insert Video: ismail_killing_delta_hospital&gt;&gt;</strong></p>
+
+
+  <CustomVideoPlayer 
+    videoId="pCBiuSl1-dY" 
+    title="BGB officer leading contingent near Delta Hospital"
+  />
   
   <p>Our journalist, while slowly moving behind the&nbsp; BGB-police contingent, suddenly turned right and saw the blood-soaked body of Ismail. Before that, he took a photograph of the BGB officer in question in a firing position a little past Delta Hospital. The photo was taken from behind, so the officer's face was not visible.&nbsp;&nbsp;</p>
   
@@ -259,17 +431,34 @@
   
   <p>In addition, the images reveal at least one distinct bullet entry wound on his right chest, the dark puncture mark stark against his blood-soaked shirt. The bullet wound on his chest was still fresh with blood oozing out, suggesting he was shot a second time.&nbsp;</p>
   
-  <p><strong>&lt;&lt;Insert: ismail_body&gt;&gt;</strong></p>
+  <figure>
+    <img
+      class="article-image"
+      src="{base}/images/ismail_body.jpg"
+      alt="A man lies motionless on the pavement in Banasree G Block after the shooting."
+      loading="lazy"
+    />
+    <figcaption>Rickshaw puller Md Ismail lies in a pool of blood in front of Delta Hospital after being shot.</figcaption>
+  </figure>
   
   <p>According to the guard, hospital staff and protesters twice attempted to retrieve Ismail's body but were forced back as shots were fired in their direction.</p>
   
   <p>As proof of the indiscriminate shooting, the guard pointed to bullet holes still visible on the hospital's front walls.&nbsp;</p>
   
-  <p><strong>&lt;&lt;use footage of bullet holes in the wall&gt;&gt;</strong></p>
-  
+
+<figure>
+  <img
+    class="article-image"
+    src="{base}/images/delta_bullet.png"
+    alt="A man lies motionless on the pavement in Banasree G Block after the shooting."
+    loading="lazy"
+  />
+  <figcaption></figcaption>
+</figure>
+
   <p>The indiscriminate nature of the shooting is highlighted in another video, which shows hospital staff rushing back into the building as shots ring out just feet from where Ismail lay dead.</p>
   
-  <p><strong>&lt;&lt;use footage from inside the hospital&gt;&gt;</strong></p>
+
   
   <p>According to Ismail's wife Lucky Begum, the ambulance carrying his body to Brahmanbaria for burial was intercepted twice by BGB later that night, once in Meradia and then right after crossing Trimohoni bridge, about 1km from Meradia and the exit point of Dhaka towards Kachpur.&nbsp;&nbsp;</p>
   
@@ -353,13 +542,7 @@
   
   <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>
   
-  <p>Additional reporting: Zyma Islam</p>
-  
-  <p>Additional research: Keero Adhnan Ahmed, Sharmin Joya</p>
-  
-  <p>Visualisation: Muhammad Imran</p>
-  
-  <p>Graphics: Anwar Sohel</p>
+
 </div>
 
 

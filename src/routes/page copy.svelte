@@ -380,44 +380,28 @@
   }
 
   .click-info {
-    text-align: center;
-    font-style: italic;
-    color: #666;
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem; /* Adds space between the text and the photos */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-
-  /* --- NEW: STYLES FOR THE STATIC VICTIM PROFILE BOX --- */
-  .victim-profile-box {
-    background-color: #F6E8E6;
-    padding: 1.5rem 2rem;
-    border-radius: 8px;
-    /* Borrow layout styles from .article-text to keep it aligned */
-    max-width: 680px;
-    margin: 2.5rem auto;
-  }
-
-  @media (max-width: 700px) {
-    .victim-profile-box {
-      padding: 1.5rem; /* Adjust padding for smaller screens */
-    }
-  }
-
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem; /* Adds space between the text and the photos */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 </style>
-
 <HeroCollage />
 
 <!-- 2. The headline for THIS page -->
-<Headline publishedDate={new Date('Wed Aug 6, 2025 11:50 PM')} />
-
+<Headline     publishedDate={new Date('2025-08-07')}
+/>
 <!-- Article Content ... (all the existing text, images, videos etc.) -->
+<!-- ... I am omitting the large block of article text for brevity, but it should remain here ... -->
+
 <div class="article-text">
   <p>It was 6:14pm on Friday, July 19, 2024. Two Border Guard Bangladesh (BGB) personnel were advancing into Banasree G Block in Dhaka.</p>
   <p>One, a taller man in a red helmet, carried a shield and a stick. The other, shorter and wearing a tactical vest with "BGB" stamped in bold white letters, carried a 7.62mm Type 56 rifle, the Chinese version of the AK variant, according to independently verified footage, and supporting assessment by weapons experts.</p>
   <p>Nine seconds into the footage, the shorter officer opens fire. He fires once to his left, then pivots, takes a few steps forward, and takes another shot to his right.&nbsp;</p>
   <CustomVideoPlayer videoId="AZG9-nUgRXY" title="BGB officer opens fire in Banasree 1" orientation="vertical"/>
-  <p>Another picture captured moments later reveals a man lying motionless in front of a shop on the G Block avenue, exactly where the officer had fired the second shot.&nbsp;</p>
+  <p>Another picture <strong>captured moments later</strong> reveals a man lying motionless in front of a shop on the G Block avenue, exactly where the officer had fired the second shot.&nbsp;</p>
   <figure>
     <img class="article-image" src="{base}/images/redwan_g_block_Banasree_3.jpg" alt="A man lies motionless on the pavement in Banasree G Block after the shooting." loading="lazy" />
     <figcaption></figcaption>
@@ -443,6 +427,7 @@
   <p>Recalling the last time she saw her son, Ashiqul's mother, Alisha Afroze, said Ashiqul joined the protests after 3:00pm that day. She was worried that he was not coming home, but she could not step outside to find him as the sounds of gunfire kept rocking the Banasree area till about 9:30pm.&nbsp;&nbsp;</p>
   <p>"After 10:00pm, a protester came to our house and showed me footage of a body lying unclaimed at the hospital. I immediately recognised it was my Ashiqul. I raised him with tears, sweat and blood as a single mother. My world revolved around him. Seeing his body, I fainted."</p>
   <p>She collected the body from the hospital around 11:00pm, hired an ambulance, and set out for Dinajpur, their ancestral home, to bury her son.&nbsp;</p>
+
 </div>
 
 <BdrMap />
@@ -461,6 +446,9 @@
   <p><a href="https://www.ohchr.org/en/documents/country-reports/ohchr-fact-finding-report-human-rights-violations-and-abuses-related">The UN fact-finding team</a> found that after the attack on BTV station, the BGB was used as a "strike force" to reinforce orders to use lethal force. The instruction was issued by both the Prime Minister's Office and home ministry on the evening of July 18 and again on July 19, leading to a near-tripling of reported deaths.&nbsp;</p>
   <p>Thr UN report gives an overview of the violence in this area, classifying "Rampura and Badda (19 July)" as a specific case of indiscriminate shooting. The UN found that BGB and police shot lethal ammunition directly into crowds.&nbsp;</p>
   <p>One witness recalled how security forces "cornered protesters from three sides and fired simultaneously.</p>
+  
+
+
   <p>The UN report also documents how hospitals in the area were overwhelmed, with one receiving over 600 injured patients and 20 dead bodies that day.</p>
   <p>The Daily Star saw 13 bodies in three hospitals of Rampura-Banasree in one hour from around 4:00-5:00pm that day.&nbsp;</p>
   <p>Separately, a TGI &amp; ITJP investigation documented at least 23 killings in Rampura-Banasree area on July 19, according to <a href="https://techglobalinstitute.com/wp-content/uploads/2025/01/Bloodshed_In_Bangladesh_V6.pdf">a report published in January 2025</a>.&nbsp;</p>
@@ -499,6 +487,10 @@
     </div>
   </Accordion>
 </div>
+
+<!-- ... Rest of your article content ... -->
+<!-- The rest of your file remains exactly the same as before. -->
+<!-- I am omitting the rest for brevity. -->
 
 <div class="article-text">
   <h2>Morning showed the day</h2>
@@ -549,53 +541,56 @@
   <p>Lt Col Redwan, the officer who was seen shooting in the direction where Ashiqul's body was found, was also filmed firing his rifle at protesters beside an APC and below a footover bridge near the Rampura TV Branch of Agrani Bank, the same area where Samudra was fatally wounded.</p>
   <p>An eyewitness told this newspaper that he saw Samudra's body lying on top of a road divider opposite Delta Hospital.&nbsp;</p>
   
-</div>
-  <!-- START: MODIFIED SECTION - NO LONGER AN ACCORDION -->
-  <div class="victim-profile-box">
-    <h2 class="accordion-heading">Victim Profiles</h2>
-    <p class="click-info">Click on a photo to read the victim's story.</p>
-
-    <div class="victim-photo-grid">
-      {#each victimsData as victim (victim.id)}
-        <button class="victim-photo-button" on:click={() => (activeVictim = victim)}>
-          <img src="{base}/images/{victim.image}" alt="Portrait of {victim.name}" loading="lazy" />
-        </button>
-      {/each}
+  <!-- SECOND, MODIFIED ACCORDION FOR VICTIMS -->
+  <Accordion openText="View Victims" closeText="Hide Victims">
+    <div slot="visible-content">
+      <h2 class="accordion-heading">Victim Profiles</h2>
     </div>
-  </div>
-  <!-- END: MODIFIED SECTION -->
+    <div slot="collapsible-content">
+      
+      <!-- ADD THIS NEW LINE OF TEXT HERE -->
+      <p class="click-info">Click on a photo to read the victim's story.</p>
+  
+      <div class="victim-photo-grid">
+        {#each victimsData as victim (victim.id)}
+          <button class="victim-photo-button" on:click={() => (activeVictim = victim)}>
+            <img src="{base}/images/{victim.image}" alt="Portrait of {victim.name}" loading="lazy" />
+          </button>
+        {/each}
+      </div>
+    </div>
+  </Accordion>
 
-  <div class="article-text">
-    <h2>Shield of lies</h2>
-    <p>The legal framework for the use of lethal force by security forces against civilian assemblies in Bangladesh is strictly defined in Chapter IX of the Code of Criminal Procedure, 1898 (CrPC).</p>
-    <p>It mandates that a force like the BGB can only use force to disperse a crowd after a verbal command from an executive magistrate or a police commissioner.&nbsp;</p>
-    <p>The use of military-grade force is a final resort, permissible only when an assembly cannot otherwise be dispersed and only upon the explicit order of the highest-ranking magistrate present. Even then, the force used must be minimal, aiming to "do as little injury to person and property" as possible.</p>
-    <p>Recently, the deputy commissioner's office in Dhaka sent a document detailing the deployment of executive magistrates alongside BGB units to the International Crimes Tribunal. The Daily Star has obtained a copy.</p>
-    <p>On July 19 in Rampura, it recorded the firing of at least 972 rounds from military-grade weapons like SMGs [Type-56] and rifles. It details a morning shift (8:00am-1:00pm) where 693 rounds were fired, and an afternoon shift (1:00pm-8:00pm) that saw another 279 rounds discharged.&nbsp;</p>
-    <p>According to this log, Lt Col Redwan fired 17 shots on July 19 under the supervision of a magistrate.&nbsp;</p>
-    <p>However, our extensive investigation and video footage from the scenes of the shootings in Rampura on July 19 shows BGB forces operating independently, without the presence of any executive magistrates as required by law.</p>
-  </div>
+
+  <h2>Shield of lies</h2>
+  <p>The legal framework for the use of lethal force by security forces against civilian assemblies in Bangladesh is strictly defined in Chapter IX of the Code of Criminal Procedure, 1898 (CrPC).</p>
+  <p>It mandates that a force like the BGB can only use force to disperse a crowd after a verbal command from an executive magistrate or a police commissioner.&nbsp;</p>
+  <p>The use of military-grade force is a final resort, permissible only when an assembly cannot otherwise be dispersed and only upon the explicit order of the highest-ranking magistrate present. Even then, the force used must be minimal, aiming to "do as little injury to person and property" as possible.</p>
+  <p>Recently, the deputy commissioner's office in Dhaka sent a document detailing the deployment of executive magistrates alongside BGB units to the International Crimes Tribunal. The Daily Star has obtained a copy.</p>
+  <p>On July 19 in Rampura, it recorded the firing of at least 972 rounds from military-grade weapons like SMGs [Type-56] and rifles. It details a morning shift (8:00am-1:00pm) where 693 rounds were fired, and an afternoon shift (1:00pm-8:00pm) that saw another 279 rounds discharged.&nbsp;</p>
+  <p>According to this log, Lt Col Redwan fired 17 shots on July 19 under the supervision of a magistrate.&nbsp;</p>
+  <p>However, our extensive investigation and video footage from the scenes of the shootings in Rampura on July 19 shows BGB forces operating independently, without the presence of any executive magistrates as required by law.</p>
   
   <blockquote class="pull-quote">
     The use of force by Border Guard Bangladesh (BGB) systematically failed to adhere to legal principles and that a large percentage of killings and injuries... violated international human rights law.
     <cite>— The UN Fact-Finding Report</cite>
   </blockquote>
 
-  <div class="article-text">
-    <p>Multiple magistrates we contacted confirmed the list was prepared by the BGB and was submitted to the Dhaka Deputy Commissioner's office. They claim they were pressured to sign the documents on July 26-28, days after the killings, and that their signatures were backdated to July 18 and 19.&nbsp;</p>
-    <p>They claimed BGB officials coerced them into signing the papers by claiming that only "blank shots" had been fired and that "no casualties occurred."</p>
-    <p>"The day we had to sign the papers, there was a heavy presence of the BGB on the premises of the DC office and inside our superior's room. Although the military did not talk with us directly, our superiors threatened us with consequences if we did not sign the documents," one magistrate said.</p>
-    <p>Multiple others we talked to separately echoed the same.</p>
-    <p>According to the Border Guard Bangladesh Act, 2010, BGB falls under the control of the home ministry.</p>
-    <p>"The force shall be under the overall superintendence of the Government and the Director General... shall direct and control the force per the general orders and instructions given by the Government from time to time," according to section 10(1).&nbsp;</p>
-    <p>All other BGB personnel operate under the command of the director general.</p>
-    <p>During the July uprising, a "Core Committee" operated as the central command-and-control hub for the violent crackdown. This committee, led by then home minister Asaduzzaman Khan Kamal, brought together the chiefs of all major security and intelligence agencies to devise and direct the suppression, the UN fact-finding report found.</p>
-    <p>The report says BGB director general, Major General Mohammad Ashrafuzzaman Siddiqui, as a regular attendee of these meetings where the operational decisions to commit "systematic and widespread extrajudicial killings" were made.</p>
-    <p>According to the report, on July 18, the day before the killings in Rampura intensified, "The home minister instructed the BGB, armed with military-grade 7.62mm rifles…. to use more lethal force to suppress the protests."&nbsp;</p>
-    <p>Meanwhile, in a recent documentary aired on Al Jazeera, Siddiqui is seen consulting with Lt Col Redwan in Rampura. Two journalists we talked to said the BGB chief visited the Rampura area for a brief period on July 19 shortly after Juma prayers. The Daily Star could not independently verify this.&nbsp;</p>
-    <p>A year after the uprising, most key members of the "core committee" are either in hiding or have been sacked. Maj Gen Siddiqui remains in his post.</p>
-    <p>In a press conference after the fall of the Awami League government, he said he ordered his troops to show restraint, particularly on August 5.</p>
-  </div>
+  
+  <p>Multiple magistrates we contacted confirmed the list was prepared by the BGB and was submitted to the Dhaka Deputy Commissioner's office. They claim they were pressured to sign the documents on July 26-28, days after the killings, and that their signatures were backdated to July 18 and 19.&nbsp;</p>
+  <p>They claimed BGB officials coerced them into signing the papers by claiming that only "blank shots" had been fired and that "no casualties occurred."</p>
+  <p>"The day we had to sign the papers, there was a heavy presence of the BGB on the premises of the DC office and inside our superior's room. Although the military did not talk with us directly, our superiors threatened us with consequences if we did not sign the documents," one magistrate said.</p>
+  <p>Multiple others we talked to separately echoed the same.</p>
+  <p>According to the Border Guard Bangladesh Act, 2010, BGB falls under the control of the home ministry.</p>
+  <p>"The force shall be under the overall superintendence of the Government and the Director General... shall direct and control the force per the general orders and instructions given by the Government from time to time," according to section 10(1).&nbsp;</p>
+  <p>All other BGB personnel operate under the command of the director general.</p>
+  <p>During the July uprising, a "Core Committee" operated as the central command-and-control hub for the violent crackdown. This committee, led by then home minister Asaduzzaman Khan Kamal, brought together the chiefs of all major security and intelligence agencies to devise and direct the suppression, the UN fact-finding report found.</p>
+  <p>The report says BGB director general, Major General Mohammad Ashrafuzzaman Siddiqui, as a regular attendee of these meetings where the operational decisions to commit "systematic and widespread extrajudicial killings" were made.</p>
+  <p>According to the report, on July 18, the day before the killings in Rampura intensified, "The home minister instructed the BGB, armed with military-grade 7.62mm rifles…. to use more lethal force to suppress the protests."&nbsp;</p>
+  <p>Meanwhile, in a recent documentary aired on Al Jazeera, Siddiqui is seen consulting with Lt Col Redwan in Rampura. Two journalists we talked to said the BGB chief visited the Rampura area for a brief period on July 19 shortly after Juma prayers. The Daily Star could not independently verify this.&nbsp;</p>
+  <p>A year after the uprising, most key members of the "core committee" are either in hiding or have been sacked. Maj Gen Siddiqui remains in his post.</p>
+  <p>In a press conference after the fall of the Awami League government, he said he ordered his troops to show restraint, particularly on August 5.</p>
+  
 
   <blockquote class="pull-quote">
     We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters… We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him.
@@ -603,17 +598,16 @@
       Director General, BGB</cite>
   </blockquote>
 
-  <div class="article-text">
-    <p>He repeatedly said that the order to deploy did not come from a single source but from "the country's highest, numerous former ministers" and "many senior figures." He said he was operating "from within pressure".</p>
-    <p>He, however, acknowledged that "one or two incidents happened," singling out a specific officer, but without naming him.</p>
-    <p>"We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters," he said.&nbsp;</p>
-    <p>"We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him."</p>
-    <p>"The punishment will be executed by the army," he added.</p>
-    <p>Two high-level sources confirmed that the "antedate seniority of Redwan has been receded for six months in a summary court martial" after he returned to his main force: Bangladesh Army.&nbsp;</p>
-    <p>On August 2, 2025, an ISPR spokesperson declined to comment on the current status of Lt Col Redwan, citing the matter sub judice.&nbsp;&nbsp;</p>
-    <p>The Judge Advocate General of BGB, declined to comment on our findings, directing us to Shariful Islam, the public relations officer of BGB.</p>
-    <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>
-  </div>
+  <p>He repeatedly said that the order to deploy did not come from a single source but from "the country's highest, numerous former ministers" and "many senior figures." He said he was operating "from within pressure".</p>
+  <p>He, however, acknowledged that "one or two incidents happened," singling out a specific officer, but without naming him.</p>
+  <p>"We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters," he said.&nbsp;</p>
+  <p>"We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him."</p>
+  <p>"The punishment will be executed by the army," he added.</p>
+  <p>Two high-level sources confirmed that the "antedate seniority of Redwan has been receded for six months in a summary court martial" after he returned to his main force: Bangladesh Army.&nbsp;</p>
+  <p>On August 2, 2025, an ISPR spokesperson declined to comment on the current status of Lt Col Redwan, citing the matter sub judice.&nbsp;&nbsp;</p>
+  <p>The Judge Advocate General of BGB, declined to comment on our findings, directing us to Shariful Islam, the public relations officer of BGB.</p>
+  <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>
+</div>
 
 <!-- Text below the scrolly -->
 <div class="article-text">
@@ -635,7 +629,7 @@
       This makes it highly dangerous in densely populated areas. The Type 56 is not intended for crowd control, three weapon experts we talked to said. It is a battlefield weapon designed to incapacitate or kill enemy combatants, three weapon experts said. Any use of this firearm in a civilian setting introduces the risk of fatal or life-altering injury and is not consistent with protocols for managing public protests.
     </p>
     <p>
-      In at least one of the photographs reviewed, a BGB personnel is seen aiming his assault rifle without using its folding stock[the part pressed against the shoulder for stability]. A firearms expert explained that this demonstrates poor marksmanship because this means the soldier had little control over where his live rounds would end up.
+      In at least one of the photographs reviewed, a BGB personnel is seen aiming his assault rifle without using its folding stock (the part pressed against the shoulder for stability). A firearms expert explained that this demonstrates poor marksmanship because this means the soldier had little control over where his live rounds would end up.
     </p>
 
     <h4>Summary Table: Weapon Distribution by Force<br/><small>In Rampura on July 19, 2024</small></h4>

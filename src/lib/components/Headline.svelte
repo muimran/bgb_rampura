@@ -17,13 +17,16 @@
 
     // A helper function to format dates into a readable string like "July 22, 2024"
     const formatDate = (date) => {
-        if (!date) return '';
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
+    if (!date) return '';
+
+    // Add the 'weekday' option to the options object
+    return date.toLocaleDateString('en-US', {
+        weekday: 'long', // This is the new addition
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+};
 
     // Reactive declarations to automatically format dates when the props change
     $: formattedPublished = formatDate(publishedDate);
@@ -39,7 +42,7 @@
     </h1>
     
     <p class="standfirst-text">
-        Joint investigation by Star-TGI reveals how a Dhaka neighbourhood became the epicentre of a state-sanctioned killings on July 19, 2024
+        A joint investigation by The Daily Star and Tech Global Institute reveals how a Dhaka neighbourhood became a hotspot of state-sanctioned killings on July 19, 2024
     </p>
 
     <!-- ADDED: Date information block -->
@@ -66,11 +69,11 @@
 
     <div class="byline">
         <p><span class="credit-label">Reporting:</span> Mashfiq Mizan and Naimur Rahman</p>
-        <p><span class="credit-label">Editing:</span> Martin Swapan Pandey</p>
         <p><span class="credit-label">Research:</span> Keero Adhnan Ahmed, Ibrahim Khalil Ibu, Sharmin Sikder, Towhidul Islam Sakib</p>
         <p><span class="credit-label">Visualisation and Map:</span> Muhammad Imran</p>
         <p><span class="credit-label">Photos:</span> Ibrahim Khalil Ibu, Collected</p>
         <p><span class="credit-label">Graphics:</span> Anwar Sohel</p>
+        <p><span class="credit-label">Editing:</span> Martin Swapan Pandey</p>
     </div>
 </div>
   

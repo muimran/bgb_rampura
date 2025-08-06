@@ -17,7 +17,6 @@
   let activeIndex = -1;
   let scroller;
   let scrollySteps = []; // This will be populated by our new processing function
-  let hasLineAnimationStarted = false;
 
   let gifOverlayState = {
     isActive: false,
@@ -130,12 +129,12 @@
     if (map.getSource('route')) {
       map.getSource('route').setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: [] } });
     }
-    hasLineAnimationStarted = false;
   }
 
   async function handleStepEnter({ index }) {
     if (index < 0 || index >= scrollySteps.length || !map.isStyleLoaded()) return;
 
+    const previousIndex = activeIndex;
     activeIndex = index;
     const step = scrollySteps[index];
 
@@ -147,6 +146,32 @@
         map.fitBounds(bounds, step.camera.options);
       }
     }
+
+    // --- NEW CENTRALIZED LINE MANAGEMENT LOGIC ---
+    const routeSource = map.getSource('route');
+    if (routeSource) {
+        // The line should be visible on step 11 (index 10) and step 12 (index 11)
+        const lineShouldBeVisible = index === 10 || index === 11;
+
+        if (lineShouldBeVisible) {
+            // Animate only when scrolling forward into the first line step
+            const shouldAnimate = index === 10 && previousIndex < 10;
+            
+            if (shouldAnimate) {
+                await animateLine();
+            } else {
+                // For all other cases (e.g., scrolling back), draw the line instantly.
+                routeSource.setData({
+                    type: 'Feature',
+                    geometry: { type: 'LineString', coordinates: allCoordinates }
+                });
+            }
+        } else {
+            // If the line shouldn't be visible for this step, clear its data.
+            routeSource.setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: [] } });
+        }
+    }
+    // --- END LINE MANAGEMENT LOGIC ---
 
     activeMarkers.forEach(marker => marker.remove());
     activeMarkers.clear();
@@ -207,10 +232,7 @@
     for (const sl of markerSLsToAdd) {
         const mData = allMarkerData.find(m => m.sl === sl);
         if (mData) {
-            if (index === 10 && sl === 11 && !hasLineAnimationStarted) {
-                hasLineAnimationStarted = true;
-                await animateLine();
-            }
+            // REMOVED: Old, faulty animation logic was here.
             const squareSLs = [4,6,8,9,10,11];
             const el = document.createElement('div');
             el.className = squareSLs.includes(mData.sl) ? 'square-marker' : 'circle-marker';
@@ -314,17 +336,17 @@
     
     let lastCamera = {
       type: 'flyTo',
-      options: { center: [allCoordinates[0][0], allCoordinates[0][1] - 0.0015], zoom: 14, pitch: 0, bearing: 0, speed: 1.5, essential: true }
+      options: { center: [allCoordinates[0][0], allCoordinates[0][1] - 0.0015], zoom: 16, pitch: 0, bearing: 0, speed: 1.5, essential: true }
     };
 
     scrollySteps = tempSteps.map((step, i) => {
       if (step.show_all_markers) {
         const bounds = allMarkerData.reduce((b, m) => b.extend([m.lon, m.lat]), new mapboxgl.LngLatBounds());
-        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 80, speed: 0.8, maxZoom: 15, offset: [0, -80] } };
+        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 80, speed: 0.5, maxZoom: 16, offset: [0, -10] } };
       } else if (step.geojson_path && ![1,5,7,10,11].includes(i)) {
         const data = geojsonCache.get(step.geojson_path);
         const bounds = getBounds(data);
-        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 120, speed: 0.8, maxZoom: 17, offset: [0, -60] } };
+        lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 120, speed: 0.5, maxZoom: 17, offset: [0, -60] } };
       } else if (step.marker_sl) {
         const mData = allMarkerData.find(m => m.sl === step.marker_sl);
         if (mData) {
@@ -384,6 +406,14 @@
     font-weight: bold;
     margin-bottom: 1rem;
   }
+  
+  /* --- CHANGE 1: ADD THIS CSS CLASS --- */
+  :global(.highlight-red) {
+    background-color: #ff0000; /* The red from your markers */
+    color: #ffffff; /* White text for contrast */
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+  }
 
   :global(.mapboxgl-popup-content) {
     padding: 10px 15px;
@@ -432,7 +462,8 @@
     {#each scrollySteps as step, i (step.id)}
       <div class="scrolly-step" class:active={activeIndex === i}>
         <h3>{step.title}</h3>
-        <p>{step.text}</p>
+        <!-- --- CHANGE 2: MODIFY THIS <p> TAG --- -->
+        <p>{@html step.text.replace(/BGB/g, '<span class="highlight-red">BGB</span>')}</p>
       </div>
     {/each}
   </div>

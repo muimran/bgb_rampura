@@ -119,7 +119,7 @@
     }
   
     .info-card {
-      background-color: #ffebee;
+      background-color: #d0e0f5;
       border: 1px solid #f5c6cb;
       border-radius: 8px;
       padding: 1.5rem;

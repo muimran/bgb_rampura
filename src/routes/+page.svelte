@@ -7,6 +7,10 @@
   import CustomVideoPlayer from '$lib/components/CustomVideoPlayer.svelte';
   import Violations from '$lib/components/Violations.svelte';
   import Accordion from '$lib/components/Accordion.svelte';
+  import HeroCollage from '$lib/components/HeroCollage.svelte';
+
+  import Headline from '$lib/components/Headline.svelte'; // Your new component
+
 
   // --- NEW DATA AND LOGIC FOR VICTIM POPUPS ---
 
@@ -108,6 +112,24 @@
     font-weight: 700;
     color: #1a1a1a;
   }
+
+
+/* --- NEW: Hyperlink Styles --- */
+.article-text a {
+  color: #007bff; /* A clear, standard blue */
+  text-decoration: underline; /* Underlines make links obvious */
+  transition: color 0.2s ease; /* Adds a smooth transition for the hover effect */
+}
+
+/* Style for when a user hovers over a link */
+.article-text a:hover {
+  color: #0056b3; /* A darker blue for the hover effect */
+}
+
+/* Style for links that have already been visited */
+.article-text a:visited {
+  color: #663399; /* A standard purple for visited links */
+}
 
   @media (max-width: 700px) {
     .article-text {
@@ -254,10 +276,73 @@
       height: 200px;
     }
   }
+
+  /* --- NEW STYLES FOR WEAPONS ANALYSIS BOX --- */
+  .analysis-box {
+    background-color: #f8f9fa;
+    border-left: 5px solid #f5c6cb; /* A distinct color for the border */
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    border-radius: 0 8px 8px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .analysis-box h3 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: #1a1a1a;
+  }
+  
+  .analysis-box h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+  }
+
+  .analysis-box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  .analysis-box th, .analysis-box td {
+    border: 1px solid #ddd;
+    padding: 0.8rem;
+    text-align: left;
+  }
+
+  .analysis-box th {
+    background-color: #e9ecef;
+    font-weight: 600;
+  }
+
+  .analysis-box td:not(:first-child) {
+    text-align: center; /* Center-align the numbers for readability */
+  }
+
+  .analysis-box .table-note {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 1rem;
+    font-style: italic;
+    line-height: 1.4;
+  }
 </style>
+<HeroCollage />
+
+<!-- 2. The headline for THIS page -->
+<Headline     publishedDate={new Date('2024-07-19')}
+/>
+<!-- Article Content ... (all the existing text, images, videos etc.) -->
+<!-- ... I am omitting the large block of article text for brevity, but it should remain here ... -->
 
 <div class="article-text">
-  <p>It was 6:14pm on Friday, July 19, 2024. Two Border Guard Bangladesh (BGB) personnel were advancing into Bansree G Block in Dhaka.</p>
+  <p>It was 6:14pm on Friday, July 19, 2024. Two Border Guard Bangladesh (BGB) personnel were advancing into Banasree G Block in Dhaka.</p>
   <p>One, a taller man in a red helmet, carried a shield and a stick. The other, shorter and wearing a tactical vest with "BGB" stamped in bold white letters, carried a 7.62mm Type 56 rifle, the Chinese version of the AK variant, according to independently verified footage, and supporting assessment by weapons experts.</p>
   <p>Nine seconds into the footage, the shorter officer opens fire. He fires once to his left, then pivots, takes a few steps forward, and takes another shot to his right.&nbsp;</p>
   <CustomVideoPlayer videoId="AZG9-nUgRXY" title="BGB officer opens fire in Banasree 1" orientation="vertical"/>
@@ -266,7 +351,7 @@
     <img class="article-image" src="{base}/images/redwan_g_block_Banasree_3.jpg" alt="A man lies motionless on the pavement in Banasree G Block after the shooting." loading="lazy" />
     <figcaption></figcaption>
   </figure>
-  <p>In the next footage, the officer repositions himself, first taking a firing stance on G Block avenue to shoot towards Road 1 of F Block. He then moves again, aiming and firing his rifle down Road 1 of G Block.</p>
+  <p>In a second footage, the officer repositions himself, first taking a firing stance on G Block avenue to shoot towards Road 1 of F Block. He then moves again, aiming and firing his rifle down Road 1 of G Block.</p>
   <CustomVideoPlayer videoId="D3P9DEmtXLE" title="BGB officer opens fire in Banasree 1" orientation="vertical" />
   <p>That bullet most likely took the life of 14-year-old Ashiqul Islam, as narrated by two eyewitnesses, and is indicative through photographs and videos from the day.</p>
   <p>A single round, most likely from a Type 56 rifle, like the one the officer and other BGB members were carrying, entered below his left ear and tore through the other side of his head.</p>
@@ -308,7 +393,7 @@
   <p>One witness recalled how security forces "cornered protesters from three sides and fired simultaneously.</p>
   <p>"Bullets were dropping down on us like rain," the UN report quotes him.&nbsp;</p>
   <p>The UN report also documents how hospitals in the area were overwhelmed, with one receiving over 600 injured patients and 20 dead bodies that day.</p>
-  <p>The Daily Star saw 13 bodies in three hospitals of Rampura-Banasree in one hour from 4:00-5:00pm that day.&nbsp;</p>
+  <p>The Daily Star saw 13 bodies in three hospitals of Rampura-Banasree in one hour from around 4:00-5:00pm that day.&nbsp;</p>
   <p>Separately, a TGI &amp; ITJP investigation documented at least 23 killings in Rampura-Banasree area on July 19, according to <a href="https://techglobalinstitute.com/wp-content/uploads/2025/01/Bloodshed_In_Bangladesh_V6.pdf">a report published in January 2025</a>.&nbsp;</p>
   <p>In a report sent to the UN, BGB claimed they only fired warning shots and caused no casualties.&nbsp;</p>
   <p>However, this directly contradicts evidence and reports from other government intelligence agencies such as the NSI. The NSI report sent to the UN mentions three killings by the BGB on July 19 in and around Rampura-Banasree.</p>
@@ -349,7 +434,8 @@
 <div class="article-text">
   <h2>Morning showed the day</h2>
   <p>The day's bloodshed began early. Verified footage shows Ramzan, a 24-year-old in an orange T-shirt, standing among protesters at the entrance of Rampura Wapda Road around 9:46am on July 19.</p>
-  <iframe class="video-embed-horizontal" src="https://www.youtube.com/embed/pCBiuSl1-dY" title="YouTube video: Verified footage shows Ramzan among protesters" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+  <CustomVideoPlayer videoId="pCBiuSl1-dY" title="BGB officer leading contingent near Delta Hospital" />
+
   <p>Just about 2:38 minutes later, Ramzan collapses, as a single bullet pierces his neck. He was shot from the front, where a contingent of 27 BGB personnel was positioned. At least 11 of them were carrying assault rifles, our forensic analysis finds.</p>
   <p>In contrast, 35 police personnel were nearby, but only six carried weapons, mostly non-lethal (shotguns and gas guns). Twenty-one police officers carried only shields and sticks.</p>
   <p>The shooter is not visible, but the distance and wound are consistent with a shot from a high-velocity rifle.&nbsp;</p>
@@ -365,7 +451,7 @@
   <p>He said a BGB unit, armed with Type-56 SMGs, was advancing from the BTV Centre towards the Abul Hotel area around 4:50pm.</p>
   <p>They were accompanied by police, who were mostly equipped with less-lethal shotguns and tear gas canisters. The journalist, who was positioned just behind the BGB contingent, said that the unit was "firing live rounds while advancing."</p>
   <p>In multiple footage, we see a BGB officer leading the pack. He was holding an assault rifle. It was about 47 metres from Delta Hospital.&nbsp;</p>
-  <CustomVideoPlayer videoId="pCBiuSl1-dY" title="BGB officer leading contingent near Delta Hospital" />
+  <CustomVideoPlayer videoId="2KjN5MWVDFg" title="BGB officer leading contingent near Delta Hospital" />
   <p>Our journalist, while slowly moving behind the&nbsp; BGB-police contingent, suddenly turned right and saw the blood-soaked body of Ismail. Before that, he took a photograph of the BGB officer in question in a firing position a little past Delta Hospital. The photo was taken from behind, so the officer's face was not visible.&nbsp;&nbsp;</p>
   <p>Md Nazim Uddin, a security guard of the hospital who witnessed the killing, said Ismail was shot in the back of the head as he tried to flee from bullets coming from the direction of Rampura TV centre around 5:00pm.&nbsp;</p>
   <p>This matches the description of our journalist. Photographs he took from the scene document a catastrophic exit wound that shattered the back of his skull, leaving brain matter visible in the pool of blood on the pavement.&nbsp;</p>
@@ -394,6 +480,23 @@
   <p>Lt Col Redwan, the officer who was seen shooting in the direction where Ashiqul's body was found, was also filmed firing his rifle at protesters beside an APC and below a footover bridge near the Rampura TV Branch of Agrani Bank, the same area where Samudra was fatally wounded.</p>
   <p>An eyewitness told this newspaper that he saw Samudra's body lying on top of a road divider opposite Delta Hospital.&nbsp;</p>
   
+  <!-- SECOND, MODIFIED ACCORDION FOR VICTIMS -->
+  <Accordion openText="View Victims" closeText="Hide Victims">
+    <div slot="visible-content">
+      <h2 class="accordion-heading">Victim Profiles</h2>
+    </div>
+    <div slot="collapsible-content">
+      <div class="victim-photo-grid">
+        {#each victimsData as victim (victim.id)}
+          <button class="victim-photo-button" on:click={() => (activeVictim = victim)}>
+            <img src="{base}/images/{victim.image}" alt="Portrait of {victim.name}" loading="lazy" />
+          </button>
+        {/each}
+      </div>
+    </div>
+  </Accordion>
+
+
   <h2>Shield of lies</h2>
   <p>The legal framework for the use of lethal force by security forces against civilian assemblies in Bangladesh is strictly defined in Chapter IX of the Code of Criminal Procedure, 1898 (CrPC).</p>
   <p>It mandates that a force like the BGB can only use force to disperse a crowd after a verbal command from an executive magistrate or a police commissioner.&nbsp;</p>
@@ -432,21 +535,63 @@
 
 <!-- Final text section -->
 <div class="article-text">
-  <!-- SECOND, MODIFIED ACCORDION FOR VICTIMS -->
-  <Accordion openText="View Victims" closeText="Hide Victims">
-    <div slot="visible-content">
-      <h2 class="accordion-heading">Victims</h2>
-    </div>
-    <div slot="collapsible-content">
-      <div class="victim-photo-grid">
-        {#each victimsData as victim (victim.id)}
-          <button class="victim-photo-button" on:click={() => (activeVictim = victim)}>
-            <img src="{base}/images/{victim.image}" alt="Portrait of {victim.name}" loading="lazy" />
-          </button>
-        {/each}
-      </div>
-    </div>
-  </Accordion>
+
+  <!-- ============================================== -->
+  <!-- ===== NEW WEAPONS ANALYSIS BOX STARTS HERE ===== -->
+  <!-- ============================================== -->
+
+  <div class="analysis-box">
+    <h3>Weapons Analysis</h3>
+    <p>
+      The Type 56 is a Chinese-manufactured assault rifle based on the design of the Soviet AK-47. It is the standard-issue service rifle of the Border Guard Bangladesh and is widely used in military contexts across the world. The weapon fires 7.62x39mm cartridges, which are high-velocity military rounds. The effective combat range of the Type 56 is between 300 and 400 meters.
+    </p>
+    <p>
+      This makes it highly dangerous in densely populated areas. The Type 56 is not intended for crowd control, three weapon experts we talked to said. It is a battlefield weapon designed to incapacitate or kill enemy combatants, three weapon experts said. Any use of this firearm in a civilian setting introduces the risk of fatal or life-altering injury and is not consistent with protocols for managing public protests.
+    </p>
+    <p>
+      In at least one of the photographs reviewed, a BGB personnel is seen aiming his assault rifle without using its folding stock[the part pressed against the shoulder for stability]. A firearms expert explained that this demonstrates poor marksmanship because this means the soldier had little control over where his live rounds would end up.
+    </p>
+
+    <h4>Summary Table: Weapon Distribution by Force<br/><small>In Rampura on July 19, 2024</small></h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Weapon Category</th>
+          <th>BGB</th>
+          <th>Police</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lethal (Primary)<br/>(Type 56 Assault Rifles)</td>
+          <td>91</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Lethal (Sidearm)<br/>(Pistols)</td>
+          <td>0</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Less-Lethal (Impact)<br/>(Shotguns, Tear-shell Guns)</td>
+          <td>0</td>
+          <td>35</td>
+        </tr>
+        <tr>
+          <td>Less-Lethal (Defensive)<br/>(Shields & Sticks)</td>
+          <td>15</td>
+          <td>105</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-note">
+      Note: Counts are based on documented instances in the provided visual evidence and represent the number of times personnel were visibly identified with specific equipment, not a total census of all officers present.
+    </p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- ===== NEW WEAPONS ANALYSIS BOX ENDS HERE ===== -->
+  <!-- ============================================ -->
 
   <Violations />
 </div>

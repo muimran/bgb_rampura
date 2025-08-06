@@ -7,6 +7,11 @@
   import { base } from '$app/paths';
   import GifOverlay from '$lib/components/GifOverlay.svelte';
 
+  // ======================== START: NEW STATE FOR INITIAL TEXT BOX ========================
+  let initialTextBoxVisible = true;
+  let hasScrolled = false; // This will be true once the user scrolls, triggering the fade
+  // ======================== END: NEW STATE FOR INITIAL TEXT BOX ========================
+
   let map;
   let mapContainer;
   let resetTrigger;
@@ -65,34 +70,21 @@
     });
   }
 
-  // ======================== START OF CHANGE: NEW HELPER FUNCTION ========================
-  /**
-   * Intelligently adds, updates, or removes a GeoJSON layer to avoid flickering.
-   * @param {string} sourceId - The ID for the Mapbox source.
-   * @param {string} layerId - The ID for the Mapbox layer.
-   * @param {string|null} geojsonPath - The path to the GeoJSON file to display, or null to remove the layer.
-   * @param {object} paintOptions - The `paint` properties for the layer.
-   * @param {object|null} labelInfo - Optional info to add a text label at the centroid.
-   */
   async function updateGeoJSONLayer(sourceId, layerId, geojsonPath, paintOptions, labelInfo = null) {
     const source = map.getSource(sourceId);
 
     if (geojsonPath) {
-      // A polygon should be visible for this step.
       const geojsonData = await fetch(geojsonPath).then(r => r.json());
       
       if (source) {
-        // Source already exists, just update its data. This is the key to preventing flicker.
         source.setData(geojsonData);
       } else {
-        // Source doesn't exist, so we need to add it and the layer for the first time.
         map.addSource(sourceId, { type: 'geojson', data: geojsonData });
         map.addLayer({ id: layerId, type: 'fill', source: sourceId, paint: paintOptions });
       }
 
-      // Handle the associated label if it exists
       if (labelInfo) {
-        updateGeoJSONLayer(LABEL_SOURCE_ID, LABEL_LAYER_ID, null); // Clear previous label first
+        updateGeoJSONLayer(LABEL_SOURCE_ID, LABEL_LAYER_ID, null); 
         const centroid = turf.centroid(geojsonData);
         centroid.properties.labelText = labelInfo.text;
         map.addSource(LABEL_SOURCE_ID, { type: 'geojson', data: centroid });
@@ -106,11 +98,9 @@
       }
 
     } else {
-      // No polygon should be visible. If one exists, remove it.
       if (source) {
         if (map.getLayer(layerId)) map.removeLayer(layerId);
         map.removeSource(sourceId);
-        // Also remove any associated label layer
         if (labelInfo && map.getLayer(LABEL_LAYER_ID)) {
             map.removeLayer(LABEL_LAYER_ID);
             if (map.getSource(LABEL_SOURCE_ID)) map.removeSource(LABEL_SOURCE_ID);
@@ -118,7 +108,6 @@
       }
     }
   }
-  // ======================== END OF CHANGE: NEW HELPER FUNCTION ========================
 
   // --- MAP AND SCROLL LOGIC ---
 
@@ -135,31 +124,26 @@
       duration: 1000 
     });
 
-    // Clear all transient markers and overlays
     activeMarkers.forEach(m => m.remove());
     activeMarkers.clear();
     gifOverlayState = { ...gifOverlayState, isActive: false };
     
-    // Use our new helper to cleanly remove any existing polygons
     updateGeoJSONLayer(POLYGON_SOURCE_ID, POLYGON_LAYER_ID, null);
     updateGeoJSONLayer(DELTA_SOURCE_ID, DELTA_LAYER_ID, null, null, { removeLabel: true });
 
 
-    // Reset animated line
     if (map.getSource('route')) {
       map.getSource('route').setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: [] } });
     }
     hasLineAnimationStarted = false;
   }
 
-  // ======================== START OF CHANGE: REFACTORED handleStepEnter ========================
   async function handleStepEnter({ index }) {
     if (index < 0 || index >= scrollySteps.length || !map.isStyleLoaded()) return;
 
     activeIndex = index;
     const step = scrollySteps[index];
 
-    // 1. EXECUTE CAMERA ACTION
     if (step.camera) {
       if (step.camera.type === 'flyTo') {
         map.flyTo(step.camera.options);
@@ -169,27 +153,20 @@
       }
     }
 
-    // 2. CLEAR PREVIOUS TRANSIENT STATE (Markers and GIFs)
     activeMarkers.forEach(marker => marker.remove());
     activeMarkers.clear();
     gifOverlayState = { ...gifOverlayState, isActive: false };
-    // NOTE: We no longer remove polygon layers here. The new helper function handles it.
-
-    // 3. DETERMINE THE STATE OF POLYGONS FOR THIS STEP
     
-    // --- Main Polygon Logic ---
     let mainPolygonPath = null;
     if (step.geojson_path) {
         mainPolygonPath = step.geojson_path;
     }
-    // Handle cases where a polygon should persist from a previous step
     if (index === 1 && scrollySteps[0]?.geojson_path) {
         mainPolygonPath = scrollySteps[0].geojson_path;
     } else if (index === 7 && scrollySteps[6]?.geojson_path) {
         mainPolygonPath = scrollySteps[6].geojson_path;
     }
 
-    // --- Extra Polygon (Delta/Agrani) Logic ---
     let extraPolygonPath = null;
     let extraPolygonLabel = null;
     const stepForExtraPolygon = (index === 5) ? scrollySteps[4] : step;
@@ -198,16 +175,12 @@
         extraPolygonLabel = stepForExtraPolygon.extra_geojson_label;
     }
 
-    // 4. UPDATE MAP LAYERS USING THE HELPER
     await Promise.all([
       updateGeoJSONLayer(POLYGON_SOURCE_ID, POLYGON_LAYER_ID, mainPolygonPath, { 'fill-color':'#ff0000', 'fill-opacity':0.7 }),
       updateGeoJSONLayer(DELTA_SOURCE_ID, DELTA_LAYER_ID, extraPolygonPath, { 'fill-color':'#000000', 'fill-opacity':0.7 }, extraPolygonLabel ? { text: extraPolygonLabel } : null)
     ]);
 
 
-    // 5. ADD VISUALS FOR CURRENT STEP (Markers, GIFs etc.)
-
-    // Special GIF case for step index 1 (sl=2)
     if (index === 1) {
       const m = allMarkerData.find(m => m.sl === 2);
       if (m) {
@@ -215,7 +188,6 @@
       }
     }
     
-    // Show all markers on final step
     if (step.show_all_markers) {
       allMarkerData.forEach(m => {
         const el = document.createElement('div');
@@ -230,7 +202,6 @@
       });
     }
 
-    // Add individual markers for specific steps
     const markerSLsToAdd = [];
     if (step.marker_sl && !step.show_all_markers) {
         markerSLsToAdd.push(step.marker_sl);
@@ -256,7 +227,6 @@
         }
     }
   }
-  // ======================== END OF CHANGE: REFACTORED handleStepEnter ========================
 
 
   // --- INITIALIZATION LOGIC ---
@@ -269,10 +239,9 @@
       
       window.addEventListener('resize', scroller.resize);
       
-      onDestroy(() => {
-        window.removeEventListener('resize', scroller.resize);
-        if (scroller) scroller.destroy();
-      });
+      // Note: onDestroy in Svelte automatically cleans up component-level state,
+      // but manual event listeners on global objects like `window` need explicit removal.
+      // Svelte's `onDestroy` is the perfect place for this.
     }, 100);
   }
 
@@ -356,12 +325,10 @@
     scrollySteps = tempSteps.map((step, i) => {
       if (step.show_all_markers) {
         const bounds = allMarkerData.reduce((b, m) => b.extend([m.lon, m.lat]), new mapboxgl.LngLatBounds());
-        // MODIFICATION: Added offset to shift view south
         lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 80, speed: 0.8, maxZoom: 15, offset: [0, -80] } };
       } else if (step.geojson_path && ![1,5,7,10,11].includes(i)) {
         const data = geojsonCache.get(step.geojson_path);
         const bounds = getBounds(data);
-        // MODIFICATION: Added offset to shift view south
         lastCamera = { type: 'fitBounds', bounds: bounds.toArray(), options: { padding: 120, speed: 0.8, maxZoom: 17, offset: [0, -60] } };
       } else if (step.marker_sl) {
         const mData = allMarkerData.find(m => m.sl === step.marker_sl);
@@ -370,11 +337,9 @@
             const nextStep = tempSteps[10];
             const t = allMarkerData.find(m => m.sl === nextStep.marker_sl);
             if (t) {
-              // MODIFICATION: Subtracted from latitude to center south
               lastCamera = { type: 'flyTo', options: { center: [t.lon + 0.0005, t.lat - 0.0015], zoom: 16, speed:0.5, essential:true } };
             }
           } else if (![1,5,7,10,11].includes(i)) {
-            // MODIFICATION: Subtracted from latitude to center south
             lastCamera = { type: 'flyTo', options: { center: [mData.lon, mData.lat - 0.0010], zoom: 16.5, speed:0.5, essential:true } };
           }
         }
@@ -383,16 +348,42 @@
     });
   }
 
+  // ======================== START: MODIFIED onMount FOR SCROLL LISTENER ========================
+  let handleFirstScroll;
   onMount(async () => {
     await buildAndProcessSteps();
     initMap();
+
+    // This function will run once when the user starts scrolling
+    handleFirstScroll = () => {
+      if (!hasScrolled) {
+        hasScrolled = true; // Trigger the fade-out class
+        // After the transition ends, remove the element from the DOM
+        setTimeout(() => {
+          initialTextBoxVisible = false;
+        }, 500); // This duration should match the CSS transition-duration
+        window.removeEventListener('scroll', handleFirstScroll); // Clean up the listener
+      }
+    };
+    
+    // Add the listener to the window
+    window.addEventListener('scroll', handleFirstScroll, { passive: true });
   });
 
   onDestroy(() => {
     activeMarkers.forEach(m => m.remove());
     if (map) map.remove();
     if (observer) observer.disconnect();
+    if (scroller) {
+      window.removeEventListener('resize', scroller.resize);
+      scroller.destroy();
+    }
+    // Also remove the scroll listener on cleanup, just in case
+    if (handleFirstScroll) {
+      window.removeEventListener('scroll', handleFirstScroll);
+    }
   });
+  // ======================== END: MODIFIED onMount FOR SCROLL LISTENER ========================
 
   const allCoordinates = [
     [90.43858851470035, 23.76241668791048], [90.43858590851148, 23.762373386440002], [90.43858330232262, 23.76233008496951],
@@ -403,6 +394,7 @@
 
 </script>
 
+<!-- ======================== START: NEW STYLES FOR INITIAL TEXT BOX ======================== -->
 <style>
   /* Your existing styles remain unchanged */
   @import 'mapbox-gl/dist/mapbox-gl.css';
@@ -453,13 +445,46 @@
     background: linear-gradient(to top, white 0%, transparent 100%);
   }
 
+  /* --- New CSS for the centered text box and its fade effect --- */
+  .initial-text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none; /* So it doesn't interfere with map interaction */
+    opacity: 1;
+    transition: opacity 0.5s ease-out; /* The fade animation */
+  }
+
+  .initial-text-box.fade-out {
+    opacity: 0; /* The target state for the fade */
+  }
+
 </style>
+<!-- ======================== END: NEW STYLES FOR INITIAL TEXT BOX ======================== -->
 
 <div class="scrolly-container">
   <div class="graphic-container">
     <div class="gradient-top"></div>
     <div class="gradient-bottom"></div>
     <div bind:this={mapContainer} id="map"></div>
+    
+    <!-- ======================== START: NEW HTML FOR INITIAL TEXT BOX ======================== -->
+    {#if initialTextBoxVisible}
+      <div class="initial-text-box" class:fade-out={hasScrolled}>
+        BGB movement throughout 19th July, 2024
+      </div>
+    {/if}
+    <!-- ======================== END: NEW HTML FOR INITIAL TEXT BOX ======================== -->
+
     <GifOverlay map={map} isActive={gifOverlayState.isActive} lngLat={gifOverlayState.lngLat} gifSrc={gifOverlayState.gifSrc} anchorOffset={gifOverlayState.anchorOffset} />
   </div>
   <div class="scrolly-steps">

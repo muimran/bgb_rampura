@@ -39,7 +39,7 @@
   <style>
     /* All the accordion-related CSS now lives inside the component, where it is scoped. */
     .accordion-container {
-      background-color: #f9f9f9;
+      background-color: #f5c6cb;
       border-radius: 8px;
       padding: 1.5rem;
       margin: 2.5rem 0;

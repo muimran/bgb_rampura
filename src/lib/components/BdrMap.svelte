@@ -7,11 +7,6 @@
   import { base } from '$app/paths';
   import GifOverlay from '$lib/components/GifOverlay.svelte';
 
-  // ======================== START: NEW STATE FOR INITIAL TEXT BOX ========================
-  let initialTextBoxVisible = true;
-  let hasScrolled = false; // This will be true once the user scrolls, triggering the fade
-  // ======================== END: NEW STATE FOR INITIAL TEXT BOX ========================
-
   let map;
   let mapContainer;
   let resetTrigger;
@@ -348,26 +343,9 @@
     });
   }
 
-  // ======================== START: MODIFIED onMount FOR SCROLL LISTENER ========================
-  let handleFirstScroll;
   onMount(async () => {
     await buildAndProcessSteps();
     initMap();
-
-    // This function will run once when the user starts scrolling
-    handleFirstScroll = () => {
-      if (!hasScrolled) {
-        hasScrolled = true; // Trigger the fade-out class
-        // After the transition ends, remove the element from the DOM
-        setTimeout(() => {
-          initialTextBoxVisible = false;
-        }, 500); // This duration should match the CSS transition-duration
-        window.removeEventListener('scroll', handleFirstScroll); // Clean up the listener
-      }
-    };
-    
-    // Add the listener to the window
-    window.addEventListener('scroll', handleFirstScroll, { passive: true });
   });
 
   onDestroy(() => {
@@ -378,12 +356,7 @@
       window.removeEventListener('resize', scroller.resize);
       scroller.destroy();
     }
-    // Also remove the scroll listener on cleanup, just in case
-    if (handleFirstScroll) {
-      window.removeEventListener('scroll', handleFirstScroll);
-    }
   });
-  // ======================== END: MODIFIED onMount FOR SCROLL LISTENER ========================
 
   const allCoordinates = [
     [90.43858851470035, 23.76241668791048], [90.43858590851148, 23.762373386440002], [90.43858330232262, 23.76233008496951],
@@ -394,7 +367,6 @@
 
 </script>
 
-<!-- ======================== START: NEW STYLES FOR INITIAL TEXT BOX ======================== -->
 <style>
   /* Your existing styles remain unchanged */
   @import 'mapbox-gl/dist/mapbox-gl.css';
@@ -445,31 +417,7 @@
     background: linear-gradient(to top, white 0%, transparent 100%);
   }
 
-  /* --- New CSS for the centered text box and its fade effect --- */
-  .initial-text-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
-    padding: 20px 30px;
-    border-radius: 8px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    z-index: 10;
-    pointer-events: none; /* So it doesn't interfere with map interaction */
-    opacity: 1;
-    transition: opacity 0.5s ease-out; /* The fade animation */
-  }
-
-  .initial-text-box.fade-out {
-    opacity: 0; /* The target state for the fade */
-  }
-
 </style>
-<!-- ======================== END: NEW STYLES FOR INITIAL TEXT BOX ======================== -->
 
 <div class="scrolly-container">
   <div class="graphic-container">
@@ -477,14 +425,6 @@
     <div class="gradient-bottom"></div>
     <div bind:this={mapContainer} id="map"></div>
     
-    <!-- ======================== START: NEW HTML FOR INITIAL TEXT BOX ======================== -->
-    {#if initialTextBoxVisible}
-      <div class="initial-text-box" class:fade-out={hasScrolled}>
-        BGB movement throughout 19th July, 2024
-      </div>
-    {/if}
-    <!-- ======================== END: NEW HTML FOR INITIAL TEXT BOX ======================== -->
-
     <GifOverlay map={map} isActive={gifOverlayState.isActive} lngLat={gifOverlayState.lngLat} gifSrc={gifOverlayState.gifSrc} anchorOffset={gifOverlayState.anchorOffset} />
   </div>
   <div class="scrolly-steps">

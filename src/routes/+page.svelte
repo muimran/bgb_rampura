@@ -427,7 +427,7 @@
   <p>Recalling the last time she saw her son, Ashiqul's mother, Alisha Afroze, said Ashiqul joined the protests after 3:00pm that day. She was worried that he was not coming home, but she could not step outside to find him as the sounds of gunfire kept rocking the Banasree area till about 9:30pm.&nbsp;&nbsp;</p>
   <p>"After 10:00pm, a protester came to our house and showed me footage of a body lying unclaimed at the hospital. I immediately recognised it was my Ashiqul. I raised him with tears, sweat and blood as a single mother. My world revolved around him. Seeing his body, I fainted."</p>
   <p>She collected the body from the hospital around 11:00pm, hired an ambulance, and set out for Dinajpur, their ancestral home, to bury her son.&nbsp;</p>
-  <p><strong>&lt;&lt;BGB movement throughout 19th July, 2024&nbsp;</strong></p>
+
 </div>
 
 <BdrMap />
@@ -447,18 +447,7 @@
   <p>Thr UN report gives an overview of the violence in this area, classifying "Rampura and Badda (19 July)" as a specific case of indiscriminate shooting. The UN found that BGB and police shot lethal ammunition directly into crowds.&nbsp;</p>
   <p>One witness recalled how security forces "cornered protesters from three sides and fired simultaneously.</p>
   
-  <blockquote class="pull-quote">
-    The use of force by Border Guard Bangladesh (BGB) systematically failed to adhere to legal principles and that a large percentage of killings and injuries... violated international human rights law.
-    <cite>— Maj Gen Mohammad Ashrafuzzaman Siddiqui
-      The UN Fact-Finding Report</cite>
-  </blockquote>
 
-
-  <blockquote class="pull-quote">
-    We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters… We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him.
-    <cite>— Maj Gen Mohammad Ashrafuzzaman Siddiqui
-      Director General, BGB</cite>
-  </blockquote>
 
   <p>The UN report also documents how hospitals in the area were overwhelmed, with one receiving over 600 injured patients and 20 dead bodies that day.</p>
   <p>The Daily Star saw 13 bodies in three hospitals of Rampura-Banasree in one hour from around 4:00-5:00pm that day.&nbsp;</p>
@@ -581,6 +570,14 @@
   <p>On July 19 in Rampura, it recorded the firing of at least 972 rounds from military-grade weapons like SMGs [Type-56] and rifles. It details a morning shift (8:00am-1:00pm) where 693 rounds were fired, and an afternoon shift (1:00pm-8:00pm) that saw another 279 rounds discharged.&nbsp;</p>
   <p>According to this log, Lt Col Redwan fired 17 shots on July 19 under the supervision of a magistrate.&nbsp;</p>
   <p>However, our extensive investigation and video footage from the scenes of the shootings in Rampura on July 19 shows BGB forces operating independently, without the presence of any executive magistrates as required by law.</p>
+  
+  <blockquote class="pull-quote">
+    The use of force by Border Guard Bangladesh (BGB) systematically failed to adhere to legal principles and that a large percentage of killings and injuries... violated international human rights law.
+    <cite>— Maj Gen Mohammad Ashrafuzzaman Siddiqui
+      The UN Fact-Finding Report</cite>
+  </blockquote>
+
+  
   <p>Multiple magistrates we contacted confirmed the list was prepared by the BGB and was submitted to the Dhaka Deputy Commissioner's office. They claim they were pressured to sign the documents on July 26-28, days after the killings, and that their signatures were backdated to July 18 and 19.&nbsp;</p>
   <p>They claimed BGB officials coerced them into signing the papers by claiming that only "blank shots" had been fired and that "no casualties occurred."</p>
   <p>"The day we had to sign the papers, there was a heavy presence of the BGB on the premises of the DC office and inside our superior's room. Although the military did not talk with us directly, our superiors threatened us with consequences if we did not sign the documents," one magistrate said.</p>
@@ -594,6 +591,14 @@
   <p>Meanwhile, in a recent documentary aired on Al Jazeera, Siddiqui is seen consulting with Lt Col Redwan in Rampura. Two journalists we talked to said the BGB chief visited the Rampura area for a brief period on July 19 shortly after Juma prayers. The Daily Star could not independently verify this.&nbsp;</p>
   <p>A year after the uprising, most key members of the "core committee" are either in hiding or have been sacked. Maj Gen Siddiqui remains in his post.</p>
   <p>In a press conference after the fall of the Awami League government, he said he ordered his troops to show restraint, particularly on August 5.</p>
+  
+
+  <blockquote class="pull-quote">
+    We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters… We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him.
+    <cite>— Maj Gen Mohammad Ashrafuzzaman Siddiqui
+      Director General, BGB</cite>
+  </blockquote>
+
   <p>He repeatedly said that the order to deploy did not come from a single source but from "the country's highest, numerous former ministers" and "many senior figures." He said he was operating "from within pressure".</p>
   <p>He, however, acknowledged that "one or two incidents happened," singling out a specific officer, but without naming him.</p>
   <p>"We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters," he said.&nbsp;</p>

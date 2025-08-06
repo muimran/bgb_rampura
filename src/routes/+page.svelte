@@ -1,7 +1,9 @@
 <script>
+  import { fly, fade } from 'svelte/transition';
   import BdrMap from '$lib/components/BdrMap.svelte';
   import { base } from '$app/paths'; 
   import CustomVideoPlayer from '$lib/components/CustomVideoPlayer.svelte';
+  import Violations from '$lib/components/Violations.svelte';
   
   let isOpen = false;
   let accordionContainer;
@@ -178,6 +180,36 @@
 .accordion-toggle .icon.rotated {
   transform: rotate(180deg);
 }
+
+
+/* --- Photo Grid Styles --- */
+.photo-grid {
+  display: grid;
+  /* Creates a 3-column grid */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; /* Adjust the space between photos */
+  margin: 1.5rem 0; /* Space above and below the grid */
+}
+
+.photo-grid-item {
+  width: 100%;
+  /* Creates a perfect square aspect ratio */
+  aspect-ratio: 1 / 1;
+  /* Ensures the image covers the square without distortion */
+  object-fit: cover;
+  border-radius: 6px; /* Softly rounded corners */
+  background-color: #e0e0e0; /* A placeholder color while images load */
+}
+
+/* On smaller screens, switch to a 2-column layout */
+@media (max-width: 600px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+
 </style>
 
 <div class="article-text">
@@ -371,6 +403,8 @@
     </button>
   </div>
 
+
+  
   <h2>Morning showed the day</h2>
   
   <!-- ... rest of your article ... -->
@@ -542,8 +576,41 @@
   
   <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>
   
+<!-- FINAL VERSION: Accordion with Heading and Collapsible Photos ONLY -->
+<div class="accordion-container" bind:this={accordionContainer}>
+  
+  <!-- The main heading is the only static text -->
+  <h2>Victims</h2>
 
+  <!-- This is the content that will be revealed (PHOTOS ONLY) -->
+  <div class="accordion-collapsible-content" class:open={isOpen}>
+    <div class="photo-grid">
+      <img class="photo-grid-item" src="{base}/images/ashiqul.jpeg" alt="Portrait of Ashiqul Islam" loading="lazy" />
+      <img class="photo-grid-item" src="{base}/images/ismail.jpg" alt="Portrait of Md Ismail" loading="lazy" />
+      <img class="photo-grid-item" src="{base}/images/kamrul.jpg" alt="Portrait of Kamrul" loading="lazy" />
+      <img class="photo-grid-item" src="{base}/images/ramjan.jpg" alt="Portrait of Ramzan" loading="lazy" />
+      <img class="photo-grid-item" src="{base}/images/samudra.jpeg" alt="Portrait of Mostofa Zaman Samudra" loading="lazy" />
+      <img class="photo-grid-item" src="{base}/images/unknown.png" alt="Portrait of an unidentified victim" loading="lazy" />
+    </div>
+  </div>
+
+  <!-- The toggle button -->
+  <button class="accordion-toggle" on:click={toggleAccordion} aria-expanded={isOpen}>
+    <span>{isOpen ? 'Hide Victims' : 'View Victims'}</span>
+    <svg class="icon" class:rotated={isOpen} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
 </div>
+<!-- END: Final Accordion -->
+
+
+<div class="article-text">
+  <Violations />
+</div>
+</div>
+
+
+
+
 
 
 <!-- Text below the scrolly -->

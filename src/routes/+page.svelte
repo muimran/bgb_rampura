@@ -8,7 +8,7 @@
   import Violations from '$lib/components/Violations.svelte';
   import Accordion from '$lib/components/Accordion.svelte';
   import HeroCollage from '$lib/components/HeroCollage.svelte';
-  import HeroCollage from '$lib/components/NavBar.svelte';
+  import Navbar from '$lib/components/NavBar.svelte';
   import Headline from '$lib/components/Headline.svelte'; // Your new component
 
 

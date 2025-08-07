@@ -648,7 +648,7 @@
     <p>"We identified one officer, a lieutenant colonel who is also a battalion commander, who opened fire directly at protesters," he said.&nbsp;</p>
     <p>"We immediately removed him from his post the next day. After an inquiry, he was returned to the army, his parent force, and we have recommended the highest possible punishment for him."</p>
     <p>"The punishment will be executed by the army," he added.</p>
-    <p>Two high-level sources confirmed that the "antedate seniority of Redwan has been receded for six months in a summary court martial" after he returned to his main force: Bangladesh Army.&nbsp;</p>
+    <p>Two high-level sources confirmed that the "antedate seniority of Redwan has been receded for six months in a summary court martial" after he returned to his main force: Bangladesh Army. However, The Daily Star could not gather related documents.&nbsp;</p>
     <p>On August 2, 2025, an ISPR spokesperson declined to comment on the current status of Lt Col Redwan, citing the matter sub judice.&nbsp;&nbsp;</p>
     <p>The Judge Advocate General of BGB, declined to comment on our findings, directing us to Shariful Islam, the public relations officer of BGB.</p>
     <p>The Daily Star contacted him via phone and email and, as requested, sent him questions in writing. On August 3, 2025, he said they would not comment on our findings.</p>

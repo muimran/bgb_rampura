@@ -10,7 +10,7 @@
   
   <style>
     :root {
-      --red-accent: #B91C1C;
+      --red-accent: #0e0d0d;
     }
     
     .top-ribbon {

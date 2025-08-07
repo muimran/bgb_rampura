@@ -71,7 +71,26 @@
 </script>
 
 <svelte:head>
-  <!-- STEP 1: ADD THE GOOGLE FONT IMPORT HERE -->
+  <!-- Main Page Title & Description -->
+  <title>Anatomy of BGB shootings in Rampura</title>
+  <meta name="description" content="A joint investigation by The Daily Star and Tech Global Institute reveals how a Dhaka neighbourhood became a hotspot of state-sanctioned killings on July 19, 2024.">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:title" content="Anatomy of BGB shootings in Rampura" />
+  <meta property="og:description" content="A joint investigation reveals how a Dhaka neighbourhood became a hotspot of state-sanctioned killings." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.thedailystar.net/bgb/" />
+  <meta property="og:image" content="https://www.thedailystar.net/bgb/images/header.jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anatomy of BGB shootings in Rampura" />
+  <meta name="twitter:description" content="A joint investigation reveals how a Dhaka neighbourhood became a hotspot of state-sanctioned killings." />
+  <meta name="twitter:image" content="https://www.thedailystar.net/bgb/images/header.jpeg" />
+
+  <!-- Google Font Import -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">

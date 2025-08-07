@@ -70,6 +70,7 @@
     <div class="byline">
         <p><span class="credit-label">Reporting:</span> Mashfiq Mizan and Naimur Rahman</p>
         <p><span class="credit-label">Research:</span> Keero Adhnan Ahmed, Ibrahim Khalil Ibu, Sharmin Sikder, Towhidul Islam Sakib</p>
+        <p><span class="credit-label">Forensic Investigation</span> Sams Wahid and Mohammad Arafat, Tech Global Institute</p>
         <p><span class="credit-label">Visualisation and Map:</span> Muhammad Imran</p>
         <p><span class="credit-label">Photos:</span> Ibrahim Khalil Ibu, Collected</p>
         <p><span class="credit-label">Graphics:</span> Anwar Sohel</p>

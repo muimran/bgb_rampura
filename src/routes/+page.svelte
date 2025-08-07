@@ -428,20 +428,31 @@
   }
 
   /* --- NEW: STYLES FOR THE STATIC VICTIM PROFILE BOX --- */
-  .victim-profile-box {
-    background-color: #F6E8E6;
-    padding: 1.5rem 2rem;
-    border-radius: 8px;
-    /* Borrow layout styles from .article-text to keep it aligned */
-    max-width: 680px;
-    margin: 2.5rem auto;
-  }
+/* --- NEW: STYLES FOR THE STATIC VICTIM PROFILE BOX --- */
+.victim-profile-box {
+  background-color: #F6E8E6;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  max-width: 680px;
+  margin: 2.5rem auto;
+  text-align: center; /* <<< ADD THIS to center the heading */
+}
 
-  @media (max-width: 700px) {
-    .victim-profile-box {
-      padding: 1.5rem; /* Adjust padding for smaller screens */
-    }
+/* === Center and underline the Victim Profiles heading (underline text only) === */
+.victim-profile-box .accordion-heading {
+  display: inline-block; /* <<< THIS IS THE KEY CHANGE */
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1rem;
+  /* text-align: center;  <-- This is no longer needed here */
+}
+/* ============================================================================ */
+
+@media (max-width: 700px) {
+  .victim-profile-box {
+    padding: 1.5rem;
   }
+}
 
 </style>
 

@@ -1,38 +1,46 @@
-<!-- src/lib/components/HeroImage.svelte (or whatever you name it) -->
 <script>
   import { base } from '$app/paths';
 </script>
 
-<!--
-  This component is now ONLY the 100vh hero image.
-  The logo ribbon has been removed and will be handled by the Navbar in +layout.svelte.
--->
-<div class="header-container">
-  <!-- The logo ribbon has been removed from here -->
-
-  <!-- Full-screen background image -->
-  <img src="{base}/images/header.jpeg" alt="An illustration of an eye made of circuitry." class="header-image" />
-</div>
+<div class="hero-container">
+  <!-- 1. The Image - Using height: auto to preserve natural position -->
+  <img src="{base}/images/header.jpeg" alt="Election Story Header" class="hero-image" />
   
+  <!-- 2. The Gradient Overlay - Absolute so it doesn't push the image -->
+  <div class="fade-overlay"></div>
+</div>
+
 <style>
-  .header-container {
-    position: relative; 
+  .hero-container {
+    position: relative;
     width: 100%;
-    height: 100vh; /* This makes it take up the full screen height */
+    /* Remove fixed VH height to let the image breathe naturally */
     overflow: hidden;
+    background-color: #fff; 
   }
 
-  /* The .top-ribbon and .ribbon-logo styles have been removed */
+  .hero-image {
+    width: 100%;
+    height: auto; /* Natural height prevents "pushing" or cropping */
+    display: block;
+  }
 
-  .header-image {
+  .fade-overlay {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    /* z-index is no longer needed as there's nothing to layer */
+    /* Covers the bottom 10% for a subtle transition */
+    height: 12%; 
+    
+    /* Fade from transparent to solid white */
+    background: linear-gradient(
+      to bottom, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 1) 100%
+    );
+    
+    pointer-events: none;
+    z-index: 2;
   }
-
-  /* Mobile styles for ribbon are also removed */
 </style>
